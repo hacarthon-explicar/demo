@@ -74,6 +74,17 @@ Mobile-first PWA
 ├── data/                   (dados de exemplo / mock SICAR)
 ├── export/                 (slides PPTX)
 └── screenshots/            (capturas de referencia)
+
+---
+
+## Proximos Passos (pos-haCARthon)
+
+1. **Integracao com a API do SICAR** — substituir dados mockados por consultas reais ao cadastro ambiental.
+2. **Desenvolvimento do backend** — FastAPI + LLM auto-hospedado (Llama/Mistral/Qwen) + OmniVoice TTS + PostgreSQL.
+3. **Validacao com usuarios reais** — testar com produtores rurais e tecnicos do CAR para refinar a comunicacao do Teo.
+4. **Pessoas e parcerias** — OEMA, FBDS, sindicatos rurais, especialistas em direito ambiental e UX para agricultura familiar.
+5. **Seguranca e LGPD** — pseudonimizacao, minimizacao de dados, auditoria, LLM em rede interna.
+6. **Recursos financeiros** — estimativa de R$ 50-80 mil para infraestrutura, integracoes e testes de campo.
 ```
 
 ---
