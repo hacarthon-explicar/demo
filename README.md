@@ -9,12 +9,12 @@ ExpliCAR e um assistente digital que ajuda o pequeno e medio produtor rural a en
 ## Acesso Rapido
 
 | Pagina | Link |
-|---|---|
-| Demonstracao Navegavel | [`demonstracao.html`](./demonstracao.html) |
-| Fluxogramas do Sistema | [`fluxogramas.html`](./fluxogramas.html) |
-| Pitch de Apresentacao | [`pitch.html`](./pitch.html) |
-| Roteiro de 3 min | [`roteiro-apresentacao.md`](./roteiro-apresentacao.md) |
-| Slides PPTX | [`export/ExpliCAR - Pitch.pptx`](./export/ExpliCAR%20-%20Pitch.pptx) |
+|---|---|---|
+| Demonstracao Navegavel | [`demonstracao.html`](https://hacarthon-explicar.github.io/demo/demonstracao.html) |
+| Fluxogramas do Sistema | [`fluxogramas.html`](https://hacarthon-explicar.github.io/demo/fluxogramas.html) |
+| Pitch de Apresentacao | [`pitch.html`](https://hacarthon-explicar.github.io/demo/pitch.html) |
+| Roteiro de 3 min | [`docs/roteiro-apresentacao.md`](https://hacarthon-explicar.github.io/demo/docs/roteiro-apresentacao.md) |
+| Slides PPTX | [`export/ExpliCAR - Pitch.pptx`](https://hacarthon-explicar.github.io/demo/export/ExpliCAR%20-%20Pitch.pptx) |
 
 ---
 
@@ -58,8 +58,6 @@ Mobile-first PWA
 ├── demonstracao.html       (demo navegavel)
 ├── fluxogramas.html        (fluxogramas do sistema)
 ├── pitch.html              (pitch de apresentacao)
-├── roteiro-apresentacao.md (script de 3 min)
-├── support.js              (runtime)
 ├── deck-stage.js           (componente de slides)
 ├── image-slot.js           (componente de imagem)
 ├── assets/                 (logos e recursos visuais)
