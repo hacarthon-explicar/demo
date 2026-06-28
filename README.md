@@ -4,6 +4,8 @@ A burocracia do Cadastro Ambiental Rural traduzida para a linguagem de quem vive
 
 ExpliCAR e um assistente digital que ajuda o pequeno e medio produtor rural a entender notificacoes do SICAR. A partir dos dados do seu imovel, o Teco (tecnico digital) explica cada pendencia em tres niveis de tom, gera um Resumo Legal Personalizado, e guia o produtor passo a passo ate a regularizacao.
 
+**Site:** [https://hacarthon-explicar.github.io/demo/](https://hacarthon-explicar.github.io/demo/)
+
 ---
 
 ## Acesso Rapido
