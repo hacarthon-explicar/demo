@@ -9,7 +9,7 @@ ExpliCAR e um assistente digital que ajuda o pequeno e medio produtor rural a en
 ## Acesso Rapido
 
 | Pagina | Link |
-|---|---|---|
+|---|---|
 | Demonstracao Navegavel | [`demonstracao.html`](https://hacarthon-explicar.github.io/demo/demonstracao.html) |
 | Fluxogramas do Sistema | [`fluxogramas.html`](https://hacarthon-explicar.github.io/demo/fluxogramas.html) |
 | Pitch de Apresentacao | [`pitch.html`](https://hacarthon-explicar.github.io/demo/pitch.html) |
