@@ -74,7 +74,7 @@ Mobile-first PWA
 ├── data/                   (dados de exemplo / mock SICAR)
 ├── export/                 (slides PPTX)
 └── screenshots/            (capturas de referencia)
-
+```
 ---
 
 ## Proximos Passos (pos-haCARthon)
@@ -85,7 +85,6 @@ Mobile-first PWA
 4. **Pessoas e parcerias** — OEMA, FBDS, sindicatos rurais, especialistas em direito ambiental e UX para agricultura familiar.
 5. **Seguranca e LGPD** — pseudonimizacao, minimizacao de dados, auditoria, LLM em rede interna.
 6. **Recursos financeiros** — estimativa de R$ 50-80 mil para infraestrutura, integracoes e testes de campo.
-```
 
 ---
 
