@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExpliCAR — Desafio 3 · haCARthon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F3ECDC; color: #221E17; font-family: 'Hanken Grotesk', system-ui, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 24px 80px; }
+  .container { max-width: 720px; width: 100%; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: #2F5D3A; color: #F3ECDC; padding: 5px 12px; border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: .04em; margin-bottom: 16px; }
+  .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .85; }
+  h1 { font-family: 'Bitter', serif; font-weight: 800; font-size: 44px; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 8px; }
+  p.sub { font-size: 16px; color: #6E5A41; line-height: 1.55; margin-bottom: 40px; }
+  .grid { display: grid; gap: 16px; margin-bottom: 48px; }
+  .card { display: block; background: #FCF8EE; border: 1px solid #E4DABF; border-radius: 16px; padding: 24px; text-decoration: none; color: inherit; transition: box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); transform: translateY(-2px); }
+  .card .icon { font-size: 32px; margin-bottom: 8px; display:flex; align-items:center; gap:6px; }
+  .card .icon i { width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
+  .card h2 { font-family: 'Bitter', serif; font-weight: 700; font-size: 20px; margin-bottom: 4px; }
+  .card p { font-size: 14px; color: #6E5A41; line-height: 1.5; }
+  .card .tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .06em; color: #8A7C62; margin-top: 12px; }
+  hr { border: none; border-top: 1px solid #E4DABF; margin: 40px 0 24px; }
+  .meta { font-size: 13px; color: #8A7C62; display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta a { color: #2F5D3A; text-decoration: none; font-weight: 600; }
+  .meta a:hover { text-decoration: underline; }
+  .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+  .logo img { height: 40px; }
+  .logo span { font-family: 'Bitter', serif; font-weight: 800; font-size: 28px; color: #2F5D3A; letter-spacing: -0.02em; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">
+    <img src="./assets/logo-limpo.png" alt="ExpliCAR">
+    <span>ExpliCAR</span>
+  </div>
+
+  <div class="badge">haCARthon · DESAFIO 3</div>
+  <h1>A burocracia do CAR traduzida para a linguagem de quem vive da terra.</h1>
+  <p class="sub">Téo, o técnico digital. Persona adaptativa com 3 tons de explicação, Resumo Legal Personalizado, gamificação e áudio OmniVoice — 100% código aberto.</p>
+
+  <div class="grid">
+    <a class="card" href="demonstracao.html">
+      <div class="icon"><i data-lucide="smartphone"></i></div>
+      <h2>Demonstração Navegável</h2>
+      <p>A jornada completa do produtor: entrada, escolha de tom, chat com Téo, gamificação 3/3, áudio, FAQ e Resumo Legal Personalizado.</p>
+      <span class="tag">→ Abrir demo</span>
+    </a>
+
+    <a class="card" href="fluxogramas.html">
+      <div class="icon"><i data-lucide="map"></i></div>
+      <h2>Fluxogramas do Sistema</h2>
+      <p>Jornada do produtor, arquitetura 100% código aberto, adaptação de tom do Téo e a lógica do Resumo Legal Personalizado.</p>
+      <span class="tag">→ Ver fluxogramas</span>
+    </a>
+
+    <a class="card" href="pitch.html">
+      <div class="icon"><i data-lucide="clapperboard"></i></div>
+      <h2>Pitch de Apresentação</h2>
+      <p>9 slides: problema, solução, persona, jornada, diferenciais (persona adaptativa, código aberto, LGPD, mobile-first), MVP, impacto.</p>
+      <span class="tag">→ Ver pitch</span>
+    </a>
+  </div>
+
+
+</div>
+<script>lucide.createIcons();</script>
+</body>
+</html>

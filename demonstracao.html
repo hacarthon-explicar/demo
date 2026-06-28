@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  button { font-family: inherit; }
+  @keyframes dotpulse { 0%,80%,100% { opacity: .25; } 40% { opacity: 1; } }
+  @keyframes eqbar { 0%,100% { transform: scaleY(.28); } 50% { transform: scaleY(1); } }
+  @keyframes sheetup { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  @keyframes msgin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes qrscan { 0% { top: 6%; } 50% { top: 90%; } 100% { top: 6%; } }
+  @keyframes softpulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  [data-app] {
+    --stage:#E7E4DC; --chrome:#221E17; --chrome-ink:#F3ECDC; --chrome-faint:#9B8F76;
+    --bezel:#221E17; --paper:#F3ECDC; --surface:#FCF8EE; --surface-2:#F8F1E1;
+    --ink:#221E17; --muted:#6E5A41; --faint:#8A7C62; --line:#E4DABF; --track:#E4DABF;
+    --brand:#2F5D3A; --accent:#2F5D3A; --accent-ink:#F3ECDC; --accent-soft:#E3EFE3; --accent-soft-ink:#2F5D3A;
+    --terra:#C05A33; --gold:#D99A2E; --teal:#266E77; --good:#2F5D3A;
+    --warn-bg:#FBEFD9; --warn-line:#D99A2E; --warn-ink:#7A5A1E;
+    --bubble-user-bg:#C05A33; --bubble-user-ink:#FBEFE6; --bubble-bot-bg:#FCF8EE; --bubble-bot-ink:#3D362A; --bubble-bot-line:#E4DABF;
+    --chat-head-bg:#2F5D3A; --chat-head-ink:#F3ECDC;
+    --rl-color:#2F5D3A; --app-color:#266E77;
+    --display:'Bitter', serif;
+  }
+</style>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div data-app="1" style="width:100%; min-height:100vh; box-sizing:border-box; padding:34px 40px 60px; background:var(--stage); font-family:'Hanken Grotesk', system-ui, sans-serif; display:flex; flex-direction:column; align-items:center; gap:24px;">
+
+  <!-- ============ STAGE TOOLBAR ============ -->
+  <div style="width:min(980px, 100%); background:var(--chrome); border-radius:18px; padding:15px 22px; display:flex; align-items:center; justify-content:space-between; gap:18px 24px; flex-wrap:wrap; box-shadow:0 12px 34px rgba(0,0,0,.22);">
+    <div style="display:flex; flex-direction:column; gap:6px; min-width:0;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:var(--accent-ink); padding:5px 11px; border-radius:999px; font-family:'DM Mono', monospace; font-size:11px; font-weight:500; letter-spacing:.03em;"><span style="width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.85;"></span>haCARthon · DESAFIO 3</span>
+        <span style="font-family:'DM Mono', monospace; font-size:11px; color:var(--chrome-faint);">jornada navegável · Téo</span>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:10px;">
+        <span style="font-family:var(--display); font-weight:800; font-size:19px; color:var(--chrome-ink); letter-spacing:-0.01em;">ExpliCAR</span>
+        <span style="font-size:12.5px; color:var(--chrome-faint);">Notificação → tom → conversa que se ajusta → resumo. Tudo é clicável.</span>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:16px; flex-shrink:0;">
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <span style="font-family:'DM Mono', monospace; font-size:9.5px; letter-spacing:.1em; color:var(--chrome-faint);">ETAPA</span>
+        <div style="display:flex; align-items:center; gap:7px;">
+          <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+            <span style="{{ st.dot }}"></span>
+          </sc-for>
+          <span style="font-family:'DM Mono',monospace; font-size:11px; color:var(--chrome-ink); margin-left:4px;">{{ stepLabel }}</span>
+        </div>
+      </div>
+      <a href="./index.html" style="display:flex; align-items:center; gap:6px; background:transparent; border:1px solid var(--chrome-faint); color:var(--chrome-faint); border-radius:9px; padding:8px 11px; font-size:12px; font-weight:600; text-decoration:none;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</a>
+      <button onClick="{{ resetAll }}" title="Reiniciar" style="display:flex; align-items:center; gap:6px; background:transparent; border:1px solid var(--chrome-faint); color:var(--chrome-faint); border-radius:9px; padding:8px 11px; cursor:pointer; font-size:12px; font-weight:600;" style-hover="opacity:.7"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reiniciar</button>
+    </div>
+  </div>
+
+  <!-- ============ PHONE ============ -->
+  <div style="flex:none; width:354px; background:var(--bezel); border-radius:46px; padding:11px; box-shadow:0 30px 66px rgba(0,0,0,.34);">
+    <div style="width:332px; height:720px; background:var(--paper); border-radius:36px; overflow:hidden; position:relative; display:flex; flex-direction:column;">
+
+      <!-- ===== HOME (página oficial do app) ===== -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--paper);">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 22px 6px; font-size:13px; font-weight:700; color:var(--ink);">
+          <span>9:41</span>
+          <span style="display:flex; gap:6px; align-items:center; color:var(--ink);">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="2.5" stroke="currentColor" stroke-width="1.2"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.2" fill="currentColor"/><rect x="21" y="4" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+          </span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 22px 14px;">
+          <span style="font-family:var(--display); font-weight:800; font-size:20px; color:var(--brand); letter-spacing:-0.01em; display:flex; align-items:center; gap:8px;"><img src="./assets/logo-limpo.png" alt="ExpliCAR" style="height:24px;">ExpliCAR</span>
+          <span style="display:inline-flex; align-items:center; gap:6px; background:var(--accent-soft); color:var(--accent-soft-ink); font-size:11.5px; font-weight:700; padding:6px 11px; border-radius:999px; border:none;"><span style="width:6px; height:6px; border-radius:50%; background:currentColor;"></span>online</span>
+        </div>
+        <div style="flex:1; display:flex; flex-direction:column; overflow-y:auto;">
+        <div style="padding:0 22px 14px;">
+          <div style="font-family:var(--display); font-weight:800; font-size:26px; color:var(--ink); line-height:1.1; letter-spacing:-0.01em;">Bom dia,<br>seu Raimundo.</div>
+          <div style="font-size:14px; color:var(--muted); margin-top:7px;">O que você precisa entender hoje?</div>
+        </div>
+        <div style="padding:0 22px; display:flex; flex-direction:column; gap:10px;">
+          <button onClick="{{ startJornada }}" style="background:#C05A33; color:#FBF1E9; border:none; text-align:left; cursor:pointer; border-radius:16px; padding:15px 14px; height:84px; display:flex; align-items:center; gap:14px; font-family:'Hanken Grotesk',system-ui,sans-serif;" style-hover="filter:brightness(1.05)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
+            <span><span style="font-weight:800; font-size:17px; display:block;">Conversar</span><span style="color:#EBC9B7; font-size:12px; line-height:1.3; display:block; margin-top:2px;">Cole uma notificação e entenda</span></span>
+          </button>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <button onClick="{{ goResumo }}" style="background:#2F5D3A; color:#EAF2E6; border:none; text-align:left; cursor:pointer; border-radius:16px; padding:15px 14px; height:84px; display:flex; flex-direction:column; justify-content:space-between; font-family:'Hanken Grotesk',system-ui,sans-serif;" style-hover="filter:brightness(1.05)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2.5"/><path d="M8 6h8"/><path d="M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h4"/></svg>
+            <span><span style="font-weight:800; font-size:16px; display:block;">Resumo Legal</span><span style="color:#A9C3A2; font-size:11.5px; line-height:1.3; display:block; margin-top:3px;">Seu resumo personalizado</span></span>
+          </button>
+          <button onClick="{{ goChat }}" style="background:#D99A2E; color:#3A2C0E; border:none; text-align:left; cursor:pointer; border-radius:16px; padding:15px 14px; height:84px; display:flex; flex-direction:column; justify-content:space-between; font-family:'Hanken Grotesk',system-ui,sans-serif;" style-hover="filter:brightness(1.05)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+            <span><span style="font-weight:800; font-size:16px; display:block;">FAQ</span><span style="color:#7A5E1E; font-size:11.5px; line-height:1.3; display:block; margin-top:3px;">Tire duvidas rapidas</span></span>
+          </button>
+          </div>
+        <button onClick="{{ ouvirHome }}" style="margin:5px 0 0; background:var(--surface); border:1.5px solid var(--line); border-radius:14px; padding:13px 15px; display:flex; align-items:center; gap:12px; cursor:pointer; text-align:left;" style-hover="filter:brightness(1.02)">
+          <span style="width:38px; height:38px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--accent-ink);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19.5 5a9 9 0 0 1 0 14"/></svg></span>
+          <span style="font-size:13px; color:var(--muted); line-height:1.35;"><b style="color:var(--ink);">Prefere ouvir?</b> Toque para escutar tudo em voz alta.</span>
+        </button>
+        </div>
+        </div>
+        <div style="margin-top:auto; display:flex; justify-content:space-around; align-items:center; padding:11px 0 16px; border-top:1px solid var(--line); background:var(--surface-2);">
+          <button onClick="{{ goHome }}" style="{{ navHomeStyle }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span style="font-size:10.5px; font-weight:700;">Início</span></button>
+          <button onClick="{{ goHome }}" style="{{ navSavedStyle }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg><span style="font-size:10.5px; font-weight:600;">Salvos</span></button>
+          <button onClick="{{ startJornada }}" style="{{ navHelpStyle }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.7-2.5 2-2.5 4"/><path d="M12 17h.01"/></svg><span style="font-size:10.5px; font-weight:600;">Ajuda</span></button>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== ENTRADA ===== -->
+      <sc-if value="{{ isEntrada }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--paper);">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 22px 6px; font-size:13px; font-weight:700; color:var(--ink);">
+          <span>9:41</span>
+          <span style="display:flex; gap:6px; align-items:center; color:var(--ink);">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="22" height="11" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="2.5" stroke="currentColor" stroke-width="1.2"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.2" fill="currentColor"/><rect x="21" y="4" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+          </span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 22px 6px;">
+          <span style="display:flex; align-items:center; gap:8px;"><button onClick="{{ goHome }}" style="background:transparent; border:none; cursor:pointer; color:var(--ink); display:flex; padding:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><span style="font-family:var(--display); font-weight:800; font-size:20px; color:var(--brand); letter-spacing:-0.01em;">ExpliCAR</span></span>
+          <span style="display:inline-flex; align-items:center; gap:6px; background:var(--accent-soft); color:var(--accent-soft-ink); font-size:11.5px; font-weight:700; padding:6px 11px; border-radius:999px;"><span style="width:6px; height:6px; border-radius:50%; background:currentColor;"></span>online</span>
+        </div>
+
+        <div style="flex:1; overflow-y:auto; padding:8px 22px 0; display:flex; flex-direction:column;">
+          <div style="font-family:var(--display); font-weight:800; font-size:25px; color:var(--ink); line-height:1.12; letter-spacing:-0.01em; margin-top:4px;">Chegou uma carta<br>do SICAR.</div>
+          <div style="font-size:13.5px; color:var(--muted); margin-top:7px; line-height:1.45;">Três páginas de siglas e artigos. Calma — a gente traduz isso junto.</div>
+
+          <!-- notification paper -->
+          <div style="margin-top:18px; position:relative; align-self:center; width:236px;">
+            <div style="position:absolute; inset:0; transform:rotate(-3deg); background:var(--surface-2); border:1px solid var(--line); border-radius:10px; top:8px;"></div>
+            <div style="position:relative; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px 16px 18px; box-shadow:0 10px 26px rgba(0,0,0,.12); transform:rotate(1.5deg);">
+              <div style="display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--line); padding-bottom:9px; margin-bottom:10px;">
+                <span style="width:22px; height:22px; border-radius:5px; background:var(--brand); display:flex; align-items:center; justify-content:center; color:var(--accent-ink);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg></span>
+                <span style="font-family:'DM Mono',monospace; font-size:9px; color:var(--faint); letter-spacing:.04em; line-height:1.3;">SISTEMA NACIONAL DE<br>CADASTRO AMBIENTAL RURAL</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <div style="height:6px; border-radius:3px; background:var(--line); width:90%;"></div>
+                <div style="display:flex; gap:5px; align-items:center; flex-wrap:wrap;">
+                  <span style="height:6px; border-radius:3px; background:var(--line); width:30px;"></span>
+                  <span style="font-family:'DM Mono',monospace; font-size:9px; font-weight:700; color:#9A2C1A; background:rgba(192,90,51,.16); border:1px solid rgba(192,90,51,.4); padding:1px 6px; border-radius:5px;">Art. 12, §4º</span>
+                  <span style="height:6px; border-radius:3px; background:var(--line); width:24px;"></span>
+                </div>
+                <div style="display:flex; gap:5px; align-items:center; flex-wrap:wrap;">
+                  <span style="font-family:'DM Mono',monospace; font-size:9px; font-weight:700; color:#9A2C1A; background:rgba(192,90,51,.16); border:1px solid rgba(192,90,51,.4); padding:1px 6px; border-radius:5px;">RL</span>
+                  <span style="height:6px; border-radius:3px; background:var(--line); width:54px;"></span>
+                  <span style="font-family:'DM Mono',monospace; font-size:9px; font-weight:700; color:#9A2C1A; background:rgba(192,90,51,.16); border:1px solid rgba(192,90,51,.4); padding:1px 6px; border-radius:5px;">APP</span>
+                </div>
+                <div style="height:6px; border-radius:3px; background:var(--line); width:78%;"></div>
+                <div style="height:6px; border-radius:3px; background:var(--line); width:88%;"></div>
+                <div style="display:flex; gap:5px; align-items:center;">
+                  <span style="height:6px; border-radius:3px; background:var(--line); width:40px;"></span>
+                  <span style="font-family:'DM Mono',monospace; font-size:9px; font-weight:700; color:var(--warn-ink); background:var(--warn-bg); border:1px solid var(--warn-line); padding:1px 6px; border-radius:5px;">SUSPENSO</span>
+                </div>
+                <div style="height:6px; border-radius:3px; background:var(--line); width:64%;"></div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; font-size:11.5px; color:var(--faint); margin-top:14px; line-height:1.4;">Aponte a câmera para o <b style="color:var(--ink);">QR code</b> que veio na carta.</div>
+        </div>
+
+        <div style="padding:14px 22px 18px; display:flex; flex-direction:column; gap:9px; border-top:1px solid var(--line); background:var(--surface-2);">
+          <button onClick="{{ goScan }}" style="display:flex; align-items:center; justify-content:center; gap:9px; background:var(--accent); color:var(--accent-ink); font-weight:800; font-size:14.5px; padding:14px 0; border-radius:13px; border:none; cursor:pointer; font-family:'Hanken Grotesk',system-ui,sans-serif;" style-hover="filter:brightness(1.06)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M21 21v-3M17 21h.01"/></svg>Apontar para o QR code</button>
+          <button onClick="{{ goIdent }}" style="display:flex; align-items:center; justify-content:center; gap:8px; background:var(--surface); color:var(--ink); font-weight:700; font-size:13.5px; padding:12px 0; border-radius:13px; border:1.5px solid var(--line); cursor:pointer; font-family:'Hanken Grotesk',system-ui,sans-serif;" style-hover="filter:brightness(1.02)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h4M6 12h12M6 16h8"/></svg>Digitar CPF + código do CAR</button>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== SCAN ===== -->
+      <sc-if value="{{ isScan }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; height:100%; display:flex; flex-direction:column; background:#11271A;">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 22px 6px; font-size:13px; font-weight:700; color:#EAF2E6;">
+          <span>9:41</span>
+          <button onClick="{{ goEntrada }}" style="background:transparent; border:none; cursor:pointer; color:#EAF2E6; display:flex; padding:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 30px;">
+          <div style="position:relative; width:210px; height:210px; border-radius:24px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); overflow:hidden; display:flex; align-items:center; justify-content:center;">
+            <svg width="150" height="150" viewBox="0 0 100 100" style="opacity:.92;">
+              <rect width="100" height="100" fill="#F3ECDC" rx="6"/>
+              <g fill="#11271A">
+                <rect x="8" y="8" width="22" height="22" rx="2"/><rect x="13" y="13" width="12" height="12" rx="1" fill="#F3ECDC"/><rect x="16" y="16" width="6" height="6"/>
+                <rect x="70" y="8" width="22" height="22" rx="2"/><rect x="75" y="13" width="12" height="12" rx="1" fill="#F3ECDC"/><rect x="78" y="16" width="6" height="6"/>
+                <rect x="8" y="70" width="22" height="22" rx="2"/><rect x="13" y="75" width="12" height="12" rx="1" fill="#F3ECDC"/><rect x="16" y="78" width="6" height="6"/>
+                <rect x="40" y="10" width="6" height="6"/><rect x="50" y="10" width="6" height="6"/><rect x="40" y="20" width="6" height="6"/><rect x="58" y="18" width="6" height="6"/>
+                <rect x="10" y="40" width="6" height="6"/><rect x="20" y="40" width="6" height="6"/><rect x="10" y="50" width="6" height="6"/><rect x="18" y="58" width="6" height="6"/>
+                <rect x="40" y="40" width="6" height="6"/><rect x="50" y="40" width="6" height="6"/><rect x="60" y="40" width="6" height="6"/><rect x="40" y="50" width="6" height="6"/><rect x="58" y="50" width="6" height="6"/><rect x="50" y="58" width="6" height="6"/><rect x="68" y="48" width="6" height="6"/>
+                <rect x="40" y="68" width="6" height="6"/><rect x="50" y="70" width="6" height="6"/><rect x="60" y="68" width="6" height="6"/><rect x="70" y="58" width="6" height="6"/><rect x="80" y="48" width="6" height="6"/><rect x="78" y="68" width="6" height="6"/><rect x="68" y="78" width="6" height="6"/><rect x="80" y="80" width="6" height="6"/><rect x="86" y="40" width="6" height="6"/>
+              </g>
+            </svg>
+            <div style="position:absolute; left:6%; right:6%; height:2px; background:linear-gradient(90deg, transparent, #B6F03C, transparent); box-shadow:0 0 12px #B6F03C; animation:qrscan 2.2s ease-in-out infinite;"></div>
+          </div>
+          <div style="margin-top:24px; display:flex; align-items:center; gap:9px;">
+            <span style="position:relative; display:flex; width:9px; height:9px;"><span style="position:absolute; inset:0; border-radius:50%; background:#B6F03C; animation:dotpulse 1.4s infinite;"></span></span>
+            <span style="font-family:'DM Mono',monospace; font-size:12px; color:#B7CDB0; letter-spacing:.03em;">lendo o código da carta…</span>
+          </div>
+          <div style="margin-top:8px; font-size:12.5px; color:#7E9A78;">{{ scanHint }}</div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== IDENTIFICAÇÃO ===== -->
+      <sc-if value="{{ isIdent }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+        <div style="padding:44px 20px 13px; display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--line);">
+          <button onClick="{{ goEntrada }}" style="background:transparent; border:none; cursor:pointer; color:var(--ink); display:flex; padding:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span style="font-family:var(--display); font-weight:700; font-size:18px; color:var(--ink); flex:1;">Achei sua terra</span>
+          <span style="display:inline-flex; align-items:center; gap:6px; background:var(--accent-soft); color:var(--accent-soft-ink); font-size:10.5px; font-weight:700; padding:5px 9px; border-radius:999px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>SICAR</span>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:15px 18px 12px;">
+          <!-- map -->
+          <div style="position:relative; height:142px; border-radius:14px; overflow:hidden; border:1px solid var(--line); margin-bottom:13px;">
+            <img src="./data/mapa.png" alt="Mapa do imóvel" style="width:100%; height:100%; object-fit:cover; display:block;">
+            <div style="position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(17,39,26,.78) 100%); pointer-events:none;"></div>
+            <div style="position:absolute; left:12px; bottom:10px; right:12px; display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none;">
+              <div>
+                <div style="font-family:'DM Mono',monospace; font-size:9.5px; color:#B7CDB0; letter-spacing:.04em;">CAR Nº PA-1506…-A1B2</div>
+                <div style="font-family:var(--display); font-weight:800; font-size:17px; color:#F3ECDC; line-height:1.1;">Sítio Boa Esperança</div>
+              </div>
+              <span style="background:var(--gold); color:#3A2C0E; font-size:10.5px; font-weight:800; padding:4px 9px; border-radius:999px;">85 ha</span>
+            </div>
+          </div>
+
+          <div style="font-size:14.5px; color:var(--ink); line-height:1.4; margin-bottom:12px;"><b>Bom dia, seu Raimundo.</b> Confere os dados da sua terra?</div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:10px 12px;"><div style="font-size:10px; color:var(--faint); font-weight:700; letter-spacing:.04em;">MUNICÍPIO</div><div style="font-size:13px; color:var(--ink); margin-top:3px; font-weight:600;">Altamira / PA</div></div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:10px 12px;"><div style="font-size:10px; color:var(--faint); font-weight:700; letter-spacing:.04em;">BIOMA</div><div style="font-size:13px; color:var(--ink); margin-top:3px; font-weight:600;">Amazônia Legal</div></div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:10px 12px;"><div style="font-size:10px; color:var(--faint); font-weight:700; letter-spacing:.04em;">MÓDULOS FISCAIS</div><div style="font-size:13px; color:var(--ink); margin-top:3px; font-weight:600;">3,2 · pequena</div></div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:10px 12px;"><div style="font-size:10px; color:var(--faint); font-weight:700; letter-spacing:.04em;">CURSO D'ÁGUA</div><div style="font-size:13px; color:var(--ink); margin-top:3px; font-weight:600;">Riacho Seco · 6 m</div></div>
+          </div>
+
+          <div style="background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:12px; padding:11px 13px; display:flex; gap:10px; margin-bottom:14px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--warn-line)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><path d="M12 2 2 21h20z"/><path d="M12 9v5M12 17h.01"/></svg>
+            <div style="font-size:12.5px; color:var(--warn-ink); line-height:1.45;"><b>3 pendências no seu CAR.</b> Calma — quase nada disso é multa. São ajustes de cadastro.</div>
+          </div>
+
+          <div style="font-size:11px; font-weight:700; letter-spacing:.04em; color:var(--faint); margin-bottom:8px;">O QUE PRECISA OLHAR</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-for list="{{ pendList }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:11px; background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:11px 13px;">
+                <span style="{{ p.iconWrap }}"><span style="{{ p.iconDot }}"></span></span>
+                <div style="flex:1; min-width:0;">
+                  <div style="font-size:13px; font-weight:700; color:var(--ink);">{{ p.titulo }}</div>
+                  <div style="font-size:11.5px; color:var(--muted); line-height:1.3; margin-top:1px;">{{ p.resumo }}</div>
+                </div>
+                <span style="{{ p.tagStyle }}">{{ p.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:11px 18px 17px; border-top:1px solid var(--line); background:var(--surface-2);">
+          <button onClick="{{ goTom }}" style="width:100%; display:flex; align-items:center; justify-content:center; gap:9px; background:var(--accent); color:var(--accent-ink); font-weight:800; font-size:14.5px; padding:14px 0; border-radius:13px; border:none; cursor:pointer; font-family:'Hanken Grotesk',system-ui,sans-serif;" style-hover="filter:brightness(1.06)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>Entender com o Téo</button>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== ESCOLHA DO TOM ===== -->
+      <sc-if value="{{ isTom }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+        <div style="background:var(--chat-head-bg); padding:46px 20px 18px; display:flex; align-items:center; gap:12px;">
+          <button onClick="{{ goIdent }}" style="background:transparent; border:none; cursor:pointer; color:var(--chat-head-ink); display:flex; padding:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <img src="./assets/logo-limpo.png" alt="Téo" style="width:42px; height:42px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+          <div style="flex:1;">
+            <div style="color:var(--chat-head-ink); font-weight:700; font-size:15.5px;">Téo · técnico do CAR</div>
+            <div style="color:var(--chat-head-ink); opacity:.72; font-size:11.5px;">explica difícil em palavra fácil</div>
+          </div>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:18px 18px 12px;">
+          <div style="background:var(--bubble-bot-bg); border:1px solid var(--bubble-bot-line); border-radius:16px 16px 16px 5px; padding:14px 16px; margin-bottom:18px;">
+            <div style="font-size:14px; color:var(--bubble-bot-ink); line-height:1.5;">Antes da gente começar, seu Raimundo — <b>como o senhor prefere que eu explique?</b></div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:11px;">
+            <sc-for list="{{ tomOptions }}" as="t" hint-placeholder-count="3">
+              <button onClick="{{ t.onPick }}" style="{{ t.cardStyle }}" style-hover="filter:brightness(1.02)">
+                <span style="{{ t.iconWrap }}"><i data-lucide="{{ t.icon }}" style="width:22px;height:22px;"></i></span>
+                <span style="flex:1; text-align:left;">
+                  <span style="display:flex; align-items:center; gap:7px;"><span style="font-family:var(--display); font-weight:800; font-size:16px; color:var(--ink);">{{ t.title }}</span><sc-if value="{{ t.recommended }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px; font-weight:800; color:var(--accent-ink); background:var(--accent); padding:2px 7px; border-radius:999px; letter-spacing:.03em;">SUGERIDO</span></sc-if></span>
+                  <span style="display:block; font-size:12px; color:var(--muted); line-height:1.4; margin-top:3px;">{{ t.desc }}</span>
+                </span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:11px 20px 18px; text-align:center; font-size:11.5px; color:var(--faint); line-height:1.4; border-top:1px solid var(--line);">O senhor pode mudar quando quiser — é só dizer <b>"não entendi"</b> ou <b>"quero saber mais"</b>.</div>
+      </div>
+      </sc-if>
+
+      <!-- ===== CHAT ===== -->
+      <sc-if value="{{ isChat }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; height:100%; display:flex; flex-direction:column; background:var(--bubble-bot-bg);">
+        <div style="background:var(--chat-head-bg); padding:44px 16px 12px; display:flex; align-items:center; gap:11px;">
+          <button onClick="{{ chatBack }}" style="background:transparent; border:none; cursor:pointer; color:var(--chat-head-ink); display:flex; padding:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <img src="./assets/logo-limpo.png" alt="Téo" style="width:38px; height:38px; border-radius:50%; object-fit:cover; flex-shrink:0;">
+          <div style="flex:1; min-width:0;">
+            <div style="color:var(--chat-head-ink); font-weight:700; font-size:15px;">Téo · técnico do CAR</div>
+            <div style="color:var(--chat-head-ink); opacity:.72; font-size:11px; display:flex; align-items:center; gap:5px;"><span style="width:6px; height:6px; border-radius:50%; background:#9FE0A0;"></span>tom: {{ tomLabel }}</div>
+          </div>
+        </div>
+
+        <!-- gamificação -->
+        <div style="background:#28502F; padding:9px 16px 11px; border-bottom:1px solid rgba(255,255,255,.08);">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:7px;">
+            <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.06em; color:#A9C3A2;">SUAS PENDÊNCIAS</span>
+            <span style="font-size:11.5px; font-weight:800; color:#EAF2E6;">{{ resolvedCount }} de 3 resolvidas</span>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <sc-for list="{{ progress }}" as="g" hint-placeholder-count="3">
+              <div style="flex:1; display:flex; align-items:center; gap:6px; background:rgba(255,255,255,.07); border-radius:8px; padding:5px 7px;">
+                <span style="{{ g.dot }}"><sc-if value="{{ g.done }}" hint-placeholder-val="{{ false }}"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#11271A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></sc-if></span>
+                <span style="{{ g.labelStyle }}">{{ g.short }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div ref="{{ chatRef }}" style="flex:1; overflow-y:auto; padding:16px 14px 6px; display:flex; flex-direction:column; gap:12px;">
+          <sc-for list="{{ chatView }}" as="m" hint-placeholder-count="1">
+
+            <sc-if value="{{ m.isSystem }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:center; display:flex; align-items:center; gap:7px; background:var(--accent-soft); border:1px solid var(--accent); border-radius:999px; padding:5px 13px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent-soft-ink)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                <span style="font-size:11.5px; font-weight:700; color:var(--accent-soft-ink);">{{ m.text }}</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ m.isUser }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-end; max-width:82%; background:var(--bubble-user-bg); color:var(--bubble-user-ink); font-size:13px; line-height:1.45; padding:11px 14px; border-radius:16px 16px 5px 16px; animation:msgin .25s ease;">{{ m.text }}</div>
+            </sc-if>
+
+            <sc-if value="{{ m.isBot }}" hint-placeholder-val="{{ true }}">
+              <div style="align-self:flex-start; max-width:92%; background:var(--bubble-bot-bg); border:1px solid var(--bubble-bot-line); border-radius:16px 16px 16px 5px; padding:13px 15px; animation:msgin .25s ease;">
+                <sc-if value="{{ m.hasLead }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:12.5px; color:var(--muted); font-style:italic; line-height:1.4; margin-bottom:10px;">{{ m.lead }}</div>
+                </sc-if>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;">
+                  <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.08em; color:var(--accent-soft-ink);">EXPLICAÇÃO</span>
+                  <span style="font-size:9.5px; font-weight:700; color:var(--faint); background:var(--surface-2); border:1px solid var(--line); padding:2px 8px; border-radius:999px;">{{ m.levelName }}</span>
+                </div>
+                <sc-for list="{{ m.blocks }}" as="b" hint-placeholder-count="3">
+                  <div style="margin-bottom:9px;">
+                    <div style="font-size:11px; font-weight:800; color:var(--ink); margin-bottom:3px; text-transform:uppercase; letter-spacing:.02em;">{{ b.label }}</div>
+                    <sc-for list="{{ b.lines }}" as="ln" hint-placeholder-count="1">
+                      <div style="font-size:13px; color:var(--bubble-bot-ink); line-height:1.5;">{{ ln }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+                <div style="display:flex; gap:7px; margin-top:10px; align-items:center;">
+                  <button onClick="{{ m.onOuvir }}" style="display:inline-flex; align-items:center; gap:5px; background:var(--accent); color:var(--accent-ink); font-size:11.5px; font-weight:700; padding:6px 11px; border-radius:999px; border:none; cursor:pointer;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>Ouvir</button>
+                  <span style="font-family:'DM Mono',monospace; font-size:10.5px; color:var(--faint); margin-left:auto;">{{ m.refs }}</span>
+                </div>
+                <sc-if value="{{ m.showControls }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; padding-top:12px; border-top:1px dashed var(--line);">
+                    <sc-if value="{{ m.canDown }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ naoEntendi }}" style="display:inline-flex; align-items:center; gap:5px; background:var(--surface-2); color:var(--terra); font-size:11.5px; font-weight:700; padding:8px 12px; border-radius:999px; border:1.5px solid var(--terra); cursor:pointer;">Não entendi</button>
+                    </sc-if>
+                    <sc-if value="{{ m.canUp }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ entenderMelhor }}" style="display:inline-flex; align-items:center; gap:5px; background:var(--surface-2); color:var(--teal); font-size:11.5px; font-weight:700; padding:8px 12px; border-radius:999px; border:1.5px solid var(--teal); cursor:pointer;">Quero saber mais</button>
+                    </sc-if>
+                    <button onClick="{{ resolver }}" style="display:inline-flex; align-items:center; gap:5px; background:var(--accent); color:var(--accent-ink); font-size:11.5px; font-weight:800; padding:8px 13px; border-radius:999px; border:none; cursor:pointer; margin-left:auto;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Entendi</button>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ m.isFaq }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-start; max-width:90%; background:var(--surface-2); border:1px solid var(--line); border-radius:16px 16px 16px 5px; padding:11px 14px; animation:msgin .25s ease;">
+                <sc-for list="{{ m.faqLines }}" as="ln" hint-placeholder-count="1">
+                  <div style="font-size:12.5px; color:var(--bubble-bot-ink); line-height:1.5;">{{ ln }}</div>
+                </sc-for>
+                <button onClick="{{ m.onOuvir }}" style="display:inline-flex; align-items:center; gap:5px; background:transparent; color:var(--accent-soft-ink); font-size:11px; font-weight:700; padding:5px 0 0; border:none; cursor:pointer; margin-top:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>Ouvir</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ m.isResumo }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-start; width:100%; background:linear-gradient(165deg, #357046 0%, #266E77 100%); border-radius:16px 16px 16px 5px; padding:15px 16px; animation:msgin .25s ease;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:11px;">
+                  <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.06em; color:#9FE0A0;">RESUMO LEGAL · SÓ DA SUA TERRA</span>
+                </div>
+                <div style="font-size:13.5px; color:#EAF2E6; line-height:1.5; margin-bottom:13px;">Olha como a conta cai pra sua realidade, seu Raimundo:</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <sc-for list="{{ m.steps }}" as="st" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:center; gap:11px; background:rgba(255,255,255,.09); border-radius:11px; padding:10px 12px;">
+                      <span style="font-family:var(--display); font-weight:800; font-size:18px; color:#F3ECDC; min-width:46px; text-align:center;">{{ st.big }}</span>
+                      <span style="flex:1;">
+                        <span style="display:block; font-size:10px; font-weight:800; letter-spacing:.04em; color:#9FE0A0; text-transform:uppercase;">{{ st.tag }}</span>
+                        <span style="display:block; font-size:12px; color:#E3F0F1; line-height:1.4; margin-top:2px;">{{ st.txt }}</span>
+                      </span>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="font-size:12.5px; color:#EAF2E6; line-height:1.5; margin-top:12px; padding-top:11px; border-top:1px solid rgba(255,255,255,.16);">{{ m.close }}</div>
+                <button onClick="{{ m.onOuvir }}" style="display:inline-flex; align-items:center; gap:5px; background:var(--gold); color:#3A2C0E; font-size:11.5px; font-weight:800; padding:7px 13px; border-radius:999px; border:none; cursor:pointer; margin-top:12px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>Ouvir esse resumo</button>
+              </div>
+            </sc-if>
+
+          </sc-for>
+
+          <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+            <div style="align-self:flex-start; background:var(--bubble-bot-bg); border:1px solid var(--bubble-bot-line); border-radius:16px 16px 16px 5px; padding:13px 16px; display:flex; gap:5px;">
+              <span style="width:7px; height:7px; border-radius:50%; background:var(--faint); animation:dotpulse 1.2s infinite;"></span>
+              <span style="width:7px; height:7px; border-radius:50%; background:var(--faint); animation:dotpulse 1.2s infinite .2s;"></span>
+              <span style="width:7px; height:7px; border-radius:50%; background:var(--faint); animation:dotpulse 1.2s infinite .4s;"></span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ allDone }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ goResumo }}" style="display:flex; align-items:center; justify-content:center; gap:9px; background:var(--accent); color:var(--accent-ink); font-weight:800; font-size:14px; padding:14px 0; border-radius:14px; border:none; cursor:pointer; margin:4px 0 6px; animation:msgin .3s ease;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Ver meu resumo final</button>
+          </sc-if>
+        </div>
+
+        <!-- input -->
+        <div style="padding:9px 12px 12px; background:var(--bubble-bot-bg); border-top:1px solid var(--line);">
+          <div style="display:flex; gap:6px; overflow-x:auto; padding-bottom:8px;">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.onTap }}" style="white-space:nowrap; background:var(--surface); border:1.5px solid var(--line); color:var(--ink); font-size:11.5px; font-weight:600; padding:7px 12px; border-radius:999px; cursor:pointer; flex-shrink:0; display:inline-flex; align-items:center; gap:6px;" style-hover="filter:brightness(1.02)"><sc-if value="{{ c.icon }}" hint-placeholder-val="{{ false }}"><i data-lucide="{{ c.icon }}" style="width:1em;height:1em;"></i></sc-if> {{ c.label }}</button>
+            </sc-for>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; background:var(--surface); border:1.5px solid var(--line); border-radius:999px; padding:5px 6px 5px 15px;">
+            <input value="{{ faqText }}" onInput="{{ onFaqInput }}" onKeyDown="{{ onFaqKey }}" placeholder="Pergunte com suas palavras (pode errar)…" style="flex:1; border:none; background:transparent; outline:none; font-size:13px; color:var(--ink); font-family:'Hanken Grotesk',system-ui,sans-serif; min-width:0;">
+            <button onClick="{{ faqSend }}" style="width:36px; height:36px; border-radius:50%; background:var(--accent); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--accent-ink); flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== RESUMO FINAL ===== -->
+      <sc-if value="{{ isResumo }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; height:100%; display:flex; flex-direction:column;">
+        <div style="padding:44px 20px 13px; display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--line);">
+          <button onClick="{{ goHome }}" style="background:transparent; border:none; cursor:pointer; color:var(--ink); display:flex; padding:0;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span style="font-family:var(--display); font-weight:700; font-size:18px; color:var(--ink); flex:1;">Seu resumo</span>
+          <span style="display:inline-flex; align-items:center; gap:6px; background:var(--accent-soft); color:var(--accent-soft-ink); font-size:10.5px; font-weight:700; padding:5px 9px; border-radius:999px;"><span style="width:6px; height:6px; border-radius:50%; background:currentColor;"></span>online</span>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:16px 18px 12px;">
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:18px;">
+            <span style="width:58px; height:58px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; color:var(--accent-ink); animation:softpulse 2.4s ease-in-out infinite;"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div style="font-family:var(--display); font-weight:800; font-size:21px; color:var(--ink); line-height:1.15; margin-top:13px;">As 3 têm caminho,<br>seu Raimundo.</div>
+            <div style="font-size:13px; color:var(--muted); margin-top:7px; line-height:1.45;">O que travava há tempo virou três passos. Leve no bolso.</div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <sc-for list="{{ finalSteps }}" as="f" hint-placeholder-count="3">
+              <div style="display:flex; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:13px; padding:13px 14px;">
+                <span style="width:26px; height:26px; border-radius:8px; background:var(--accent-soft); color:var(--accent-soft-ink); display:flex; align-items:center; justify-content:center; font-family:var(--display); font-weight:800; font-size:14px; flex-shrink:0;">{{ f.n }}</span>
+                <div style="flex:1;">
+                  <div style="font-size:13.5px; font-weight:800; color:var(--ink); line-height:1.25;">{{ f.titulo }}</div>
+                  <div style="font-size:12.5px; color:var(--muted); line-height:1.45; margin-top:3px;">{{ f.acao }}</div>
+                  <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--faint); margin-top:6px;">{{ f.base }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-top:16px;">
+            <button onClick="{{ ouvirResumoFinal }}" style="flex:1; display:flex; align-items:center; justify-content:center; gap:7px; background:var(--accent); color:var(--accent-ink); font-weight:800; font-size:13px; padding:12px 0; border-radius:11px; border:none; cursor:pointer;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>Ouvir</button>
+            <button style="flex:1; display:flex; align-items:center; justify-content:center; gap:7px; background:var(--surface-2); color:var(--muted); font-weight:800; font-size:13px; padding:12px 0; border-radius:11px; border:1.5px solid var(--line); cursor:pointer;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Salvar</button>
+            <button style="flex:1; display:flex; align-items:center; justify-content:center; gap:7px; background:var(--surface-2); color:var(--muted); font-weight:800; font-size:13px; padding:12px 0; border-radius:11px; border:1.5px solid var(--line); cursor:pointer;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Enviar</button>
+          </div>
+          <div style="text-align:center; font-size:11px; color:var(--faint); margin-top:11px; line-height:1.4;">Salvo no aparelho — abre no sítio, no caminhão, longe do sinal.</div>
+        </div>
+        <div style="padding:10px 18px 16px; border-top:1px solid var(--line); background:var(--surface-2);">
+          <button onClick="{{ resetAll }}" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px; background:transparent; color:var(--muted); font-weight:700; font-size:13px; padding:11px 0; border-radius:11px; border:1.5px solid var(--line); cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Recomeçar a demonstração</button>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== AUDIO SHEET ===== -->
+      <sc-if value="{{ audioOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; z-index:20; display:flex; flex-direction:column; justify-content:flex-end;">
+        <button onClick="{{ closeAudio }}" style="position:absolute; inset:0; background:rgba(0,0,0,.4); border:none; cursor:pointer;"></button>
+        <div style="position:relative; background:var(--surface); border-radius:26px 26px 0 0; padding:14px 22px 26px; box-shadow:0 -10px 40px rgba(0,0,0,.3); animation:sheetup .28s ease;">
+          <div style="width:40px; height:4px; border-radius:999px; background:var(--line); margin:0 auto 16px;"></div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;">
+            <div>
+              <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.06em; color:var(--accent-soft-ink); margin-bottom:5px;">OUVINDO · OmniVoice</div>
+              <div style="font-family:var(--display); font-weight:700; font-size:17px; color:var(--ink); line-height:1.2; max-width:230px;">{{ audioTitle }}</div>
+            </div>
+            <button onClick="{{ closeAudio }}" style="background:transparent; border:none; cursor:pointer; color:var(--faint); display:flex; padding:4px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          </div>
+          <div style="display:flex; align-items:flex-end; justify-content:center; gap:3px; height:46px; margin-bottom:16px;">
+            <sc-for list="{{ eqBars }}" as="eb" hint-placeholder-count="28"><div style="{{ eb }}"></div></sc-for>
+          </div>
+          <div style="height:6px; border-radius:999px; background:var(--track); overflow:hidden; margin-bottom:7px;"><div style="height:100%; border-radius:999px; background:var(--accent); width:{{ audioPct }}%;"></div></div>
+          <div style="display:flex; justify-content:space-between; font-family:'DM Mono',monospace; font-size:11px; color:var(--faint); margin-bottom:18px;"><span>{{ audioCur }}</span><span>{{ audioDur }}</span></div>
+          <div style="display:flex; align-items:center; justify-content:center; gap:24px;">
+            <span style="font-size:13px; font-weight:700; color:var(--faint);">1×</span>
+            <button onClick="{{ toggleAudio }}" style="width:64px; height:64px; border-radius:50%; background:var(--accent); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--accent-ink); box-shadow:0 6px 18px rgba(0,0,0,.22);">
+              <sc-if value="{{ audioPlaying }}" hint-placeholder-val="{{ true }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.3"/><rect x="14" y="5" width="4" height="14" rx="1.3"/></svg></sc-if>
+              <sc-if value="{{ audioPaused }}" hint-placeholder-val="{{ false }}"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></sc-if>
+            </button>
+            <span style="display:flex; align-items:center; gap:5px; font-size:11px; font-weight:700; color:var(--good);"><span style="width:6px; height:6px; border-radius:50%; background:currentColor;"></span>online</span>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1000, &quot;height&quot;: 880 },
+  &quot;tom&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;direto&quot;, &quot;calma&quot;, &quot;completo&quot;], &quot;default&quot;: &quot;calma&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Demonstração&quot; },
+  &quot;startScreen&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;home&quot;, &quot;entrada&quot;, &quot;ident&quot;, &quot;tom&quot;, &quot;chat&quot;, &quot;resumo&quot;], &quot;default&quot;: &quot;home&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Demonstração&quot; }
+}">
+class Component extends DCLogic {
+  state = {
+    screen: 'home', tom: 'calma', curIdx: 0, curLevel: 1,
+    chat: [], typing: false, resolved: [false, false, false], allDone: false,
+    faqText: '', resumoShown: false, directFaq: false,
+    audioOpen: false, audioPlaying: false, audioTitle: '', audioPos: 0, audioDur: 96,
+    scanHint: 'segure firme',
+  };
+
+  TOM_TO_LEVEL = { direto: 0, calma: 1, completo: 2 };
+  LEVEL_NAMES = ['Direto ao ponto', 'Explicado com calma', 'Completo'];
+
+  PEND = [
+    { id: 'rl', short: 'Reserva Legal', titulo: 'Reserva Legal não confere', resumo: 'O número do sistema não bate com o do cartório.', status: 'SUSPENSO', color: '#C05A33' },
+    { id: 'app', short: 'Faixa do rio', titulo: 'Faixa do rio não marcada', resumo: 'Faltou desenhar a APP do Riacho Seco no mapa.', status: 'PENDENTE', color: '#D99A2E' },
+    { id: 'mat', short: 'Matrícula', titulo: 'Matrícula desatualizada', resumo: 'O documento do cartório no sistema está antigo.', status: 'PENDENTE', color: '#266E77' },
+  ];
+
+  EXPLAIN = {
+    rl: [
+      { refs: 'Art. 12', blocks: [
+        { label: 'O que é', lines: ['A mata de Reserva Legal que o senhor declarou não bate com a do cartório.'] },
+        { label: 'Não é multa', lines: ['É só diferença de número. Tem conserto.'] },
+        { label: 'O que fazer', lines: ['1. Pegue a matrícula atualizada no cartório.', '2. Ajuste a Reserva Legal no CAR pro mesmo valor.', '3. Reenvie.'] },
+      ]},
+      { refs: 'Art. 12 · 18', blocks: [
+        { label: 'O que significa', lines: ['Reserva Legal é a parte da sua terra que fica de mata nativa, seu Raimundo. Ela precisa estar igual em dois lugares: aqui no CAR (o sistema) e na matrícula (o papel do cartório).'] },
+        { label: 'Por que aconteceu', lines: ['Os dois números ficaram diferentes — acontece muito. Quando isso acontece, o sistema trava até o senhor acertar. Não é multa.'] },
+        { label: 'O que fazer', lines: ['1. Pegue a matrícula atualizada no cartório.', '2. Veja o tamanho da Reserva Legal nela.', '3. Ajuste no CAR pro mesmo número.', '4. Reenvie pra análise.'] },
+      ]},
+      { refs: 'Lei 12.651/2012, Art. 12 e 18', blocks: [
+        { label: 'Definição', lines: ['A Reserva Legal (RL) é a área do imóvel que o Código Florestal manda manter com vegetação nativa. Ela precisa estar averbada na matrícula e declarada no CAR com o mesmo valor.'] },
+        { label: 'Por que aconteceu', lines: ['Há divergência entre a RL averbada em cartório e a declarada no sistema. É inconsistência cadastral — não é infração autônoma, e há prazo pra corrigir.'] },
+        { label: 'O que fazer', lines: ['1. Obtenha a matrícula atualizada (inteiro teor) no cartório de registro de imóveis.', '2. Confira a RL averbada.', '3. Ajuste a poligonal da RL no CAR pra coincidir.', '4. Como sua terra tem menos de 4 módulos fiscais, verifique o Art. 67 antes de qualquer recomposição.'] },
+      ]},
+    ],
+    app: [
+      { refs: 'Art. 4º', blocks: [
+        { label: 'O que é', lines: ['Faltou desenhar no mapa a faixa de mata da beira do Riacho Seco — a APP.'] },
+        { label: 'É rápido', lines: ['É só marcar no croqui.'] },
+        { label: 'O que fazer', lines: ['1. Marque o Riacho Seco no mapa.', '2. Desenhe 30 m de cada lado.', '3. Reenvie.'] },
+      ]},
+      { refs: 'Art. 4º, I', blocks: [
+        { label: 'O que significa', lines: ['A APP é a faixa de mata na beira do rio — um cinto verde que segura o barranco e protege a água. No seu caso, o Riacho Seco precisa dessa faixa marcada no mapa.'] },
+        { label: 'Por que aconteceu', lines: ['No cadastro, essa faixa não foi desenhada. O sistema espera ver ela ali.'] },
+        { label: 'O que fazer', lines: ['1. Marque o Riacho Seco no croqui da sua terra.', '2. Desenhe a faixa de 30 metros de cada lado.', '3. Reenvie pra análise.'] },
+      ]},
+      { refs: 'Lei 12.651/2012, Art. 4º, I e 61-A', blocks: [
+        { label: 'Definição', lines: ['A APP (Área de Preservação Permanente) é a faixa de vegetação ao longo dos cursos d\u2019água. A largura da faixa depende da largura do rio.'] },
+        { label: 'Por que aconteceu', lines: ['A APP do curso d\u2019água não foi delimitada no módulo de georreferenciamento do CAR.'] },
+        { label: 'O que fazer', lines: ['1. Pro Riacho Seco (até 10 m de largura), a faixa é de 30 m de cada margem.', '2. Delimite no croqui.', '3. Reenvie. Se já havia uso antes de 22/07/2008 (área consolidada, Art. 61-A), a recomposição é menor.'] },
+      ]},
+    ],
+    mat: [
+      { refs: 'IN CAR', blocks: [
+        { label: 'O que é', lines: ['A matrícula que está no sistema é antiga.'] },
+        { label: 'O que fazer', lines: ['1. Tire uma matrícula atualizada no cartório.', '2. Anexe no CAR.', '3. Reenvie.'] },
+      ]},
+      { refs: 'IN CAR · Art. 8º', blocks: [
+        { label: 'O que significa', lines: ['A matrícula é o documento do cartório que prova quem é o dono e o que tem na terra. A que está no sistema está desatualizada.'] },
+        { label: 'Por que aconteceu', lines: ['Documento do cartório muda quando se atualiza alguma coisa; o sistema pede a versão mais nova.'] },
+        { label: 'O que fazer', lines: ['1. No cartório de registro de imóveis, peça a matrícula atualizada.', '2. Anexe no CAR.', '3. Reenvie.'] },
+      ]},
+      { refs: 'IN CAR · certidão de inteiro teor', blocks: [
+        { label: 'Definição', lines: ['A matrícula atualizada vincula a propriedade e suas averbações (inclusive a RL). O CAR exige a versão vigente.'] },
+        { label: 'Por que aconteceu', lines: ['A certidão anexada está vencida ou anterior às últimas averbações.'] },
+        { label: 'O que fazer', lines: ['1. Solicite a certidão de inteiro teor no cartório.', '2. Confira se a RL averbada confere com o CAR.', '3. Anexe e reenvie.'] },
+      ]},
+    ],
+  };
+
+  RESUMO_STEPS = [
+    { tag: 'A lei pede', big: '80%', txt: 'Na Amazônia Legal em floresta, a Reserva Legal seria 80% — 68 ha.' },
+    { tag: 'Desconto do ZEE', big: '50%', txt: 'O Pará tem Zoneamento Ecológico-Econômico e sua área está em zona de consolidação. Cai pra 50% — 42,5 ha.' },
+    { tag: 'Terra pequena', big: '< 4', txt: 'Sua propriedade tem 3,2 módulos fiscais. Entra no Art. 67.' },
+    { tag: 'Marco de 2008', big: '2008', txt: 'O senhor pode manter como RL a mata nativa que já existia em 22/07/2008.' },
+  ];
+  RESUMO_CLOSE = 'Ou seja: o senhor não precisa derrubar nem replantar do zero. A conta da sua terra é bem mais leve do que a regra geral assusta.';
+
+  FAQ = [
+    { keys: ['app', 'area de preservacao', 'beira do rio', 'mata ciliar', 'faixa do rio'], lines: ['APP é a Área de Preservação Permanente — a faixa de mata na beira dos rios que a lei manda manter em pé.', 'No seu Riacho Seco, são 30 metros de cada lado.'] },
+    { keys: ['reserva legal', 'reserva', 'quanto de mata', 'mata'], lines: ['Reserva Legal é a parte da sua terra que fica de mata nativa.', 'A regra na Amazônia é alta, mas o Pará dá desconto pelo zoneamento e sua terra é pequena. Toque em "Quanto de mata eu preciso?" que eu faço a conta certinha.'] },
+    { keys: ['multa', 'e multa', 'vou pagar', 'penalidade', 'pagar'], lines: ['Não, seu Raimundo. As suas três pendências são de cadastro — diferença de número e desenho no mapa. Têm conserto e prazo. Multa é outra coisa.'] },
+    { keys: ['modulo fiscal', 'modulo', 'pequena propriedade', 'tamanho'], lines: ['Módulo fiscal é uma medida de terra que muda por município. Serve pra dizer se a propriedade é pequena.', 'A sua tem 3,2 — menos de 4 — então entra nas regras mais leves.'] },
+    { keys: ['matricula', 'cartorio', 'documento', 'registro'], lines: ['Matrícula é o documento do cartório que prova quem é o dono e o que tem na terra. O sistema quer a versão atualizada.'] },
+    { keys: ['car', 'cadastro ambiental', 'sicar'], lines: ['CAR é o Cadastro Ambiental Rural — o registro da sua propriedade no sistema do governo. É como uma ficha da terra: mostra rios, mata e os limites.'] },
+    { keys: ['prazo', 'tempo', 'ate quando'], lines: ['Em geral o prazo começa a contar da notificação. O importante é dar entrada — assim que o senhor mexe no cadastro, mostra que está regularizando.'] },
+  ];
+
+  uid() { this._n = (this._n || 0) + 1; return 'm' + this._n + '_' + Date.now(); }
+
+  normalize(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  lev(a, b) {
+    const m = a.length, n = b.length; if (!m) return n; if (!n) return m;
+    const d = Array.from({ length: m + 1 }, (_, i) => [i].concat(new Array(n).fill(0)));
+    for (let j = 0; j <= n; j++) d[0][j] = j;
+    for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) {
+      const c = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + c);
+    }
+    return d[m][n];
+  }
+  fuzzyFaq(query) {
+    const q = this.normalize(query); if (!q) return null;
+    const qtok = q.split(' ');
+    for (const f of this.FAQ) {
+      for (const key of f.keys) {
+        const k = this.normalize(key);
+        if (q.includes(k) || k.includes(q)) return f;
+        const ktok = k.split(' ');
+        for (const qt of qtok) for (const kt of ktok) {
+          if (qt.length >= 3 && kt.length >= 3 && this.lev(qt, kt) <= (qt.length > 5 ? 2 : 1)) return f;
+        }
+      }
+    }
+    return null;
+  }
+
+  componentDidMount() {
+    const p = this.props || {};
+    const patch = {};
+    if (p.tom && this.TOM_TO_LEVEL[p.tom] != null) { patch.tom = p.tom; patch.curLevel = this.TOM_TO_LEVEL[p.tom]; }
+    if (p.startScreen) patch.screen = p.startScreen;
+    if (Object.keys(patch).length) this.setState(patch, () => {
+      if (this.state.screen === 'chat' && this.state.chat.length === 0) this.startChat();
+    });
+  }
+  componentDidUpdate() { if (this._chat) this._chat.scrollTop = this._chat.scrollHeight; }
+  componentWillUnmount() { this.stopTimer(); this.clearScan(); if (this.hasTTS()) window.speechSynthesis.cancel(); }
+
+  go(s) { this.stopTimer(); if (this.hasTTS()) window.speechSynthesis.cancel(); this.setState({ screen: s, audioOpen: false, audioPlaying: false }); }
+  goHome = () => this.go('home');
+  startJornada = () => this.go('entrada');
+  homeSpokenText() { return 'Bom dia, seu Raimundo. O que você precisa entender hoje? Você pode conversar e colar uma notificação, tirar dúvidas rápidas no FAQ, ou gerar seu resumo legal personalizado. Toque em um dos canais para começar.'; }
+  ouvirHome = () => this.ouvir('Tela inicial · em voz alta', this.homeSpokenText());
+  goEntrada = () => this.go('entrada');
+  goIdent = () => this.go('ident');
+  goTom = () => this.go('tom');
+  goChat = () => { this.stopTimer(); if (this.hasTTS()) window.speechSynthesis.cancel(); this.setState({ screen: 'chat', audioOpen: false, audioPlaying: false, directFaq: true }, () => { if (this.state.chat.length === 0) this.startChat(); }); };
+  goResumo = () => this.go('resumo');
+  chatBack = () => { if (this.state.directFaq) this.goHome(); else this.goTom(); };
+
+  clearScan() { if (this._scanT) { clearTimeout(this._scanT); this._scanT = null; } }
+  goScan = () => {
+    this.go('scan');
+    this.setState({ scanHint: 'segure firme' });
+    this._scanT = setTimeout(() => this.setState({ scanHint: 'reconhecido!' }, () => {
+      this._scanT = setTimeout(() => this.go('ident'), 650);
+    }), 1500);
+  };
+
+  pickTom = (t) => {
+    const lvl = this.TOM_TO_LEVEL[t];
+    this.setState({ tom: t, curLevel: lvl, screen: 'chat', curIdx: 0, resolved: [false, false, false], chat: [], allDone: false, resumoShown: false, directFaq: false }, () => this.startChat());
+  };
+
+  clearControls(list) { return list.map(m => m.showControls ? { ...m, showControls: false } : m); }
+  pushUser(text) { this.setState(st => ({ chat: [...this.clearControls(st.chat), { id: this.uid(), isUser: true, text }] })); }
+  pushSystem(text) { this.setState(st => ({ chat: [...st.chat, { id: this.uid(), isSystem: true, text }] })); }
+  pushBotAfter(builder, delay) {
+    this.setState(st => ({ chat: this.clearControls(st.chat), typing: true }));
+    setTimeout(() => { const msg = builder(); this.setState(st => ({ chat: [...st.chat, msg], typing: false })); }, delay || 1050);
+  }
+
+  makeExplain(pIdx, level, lead) {
+    const pend = this.PEND[pIdx];
+    const data = this.EXPLAIN[pend.id][level];
+    return { id: this.uid(), isBot: true, pIdx, level, hasLead: !!lead, lead: lead || '', levelName: this.LEVEL_NAMES[level], blocks: data.blocks, refs: data.refs, showControls: true, canDown: level > 0, canUp: level < 2 };
+  }
+  makeResumo() { return { id: this.uid(), isResumo: true, steps: this.RESUMO_STEPS, close: this.RESUMO_CLOSE }; }
+
+  startChat() {
+    this.pushBotAfter(() => this.makeExplain(0, this.state.curLevel, 'Oi, seu Raimundo. Téo aqui. Bora pela primeira da lista — com calma.'), 700);
+  }
+
+  naoEntendi = () => {
+    const nl = Math.max(0, this.state.curLevel - 1);
+    this.pushUser('Hmm… não peguei direito.');
+    this.setState({ curLevel: nl });
+    this.pushBotAfter(() => this.makeExplain(this.state.curIdx, nl, 'Sem problema. Vou de outro jeito, mais por cima:'));
+  };
+  entenderMelhor = () => {
+    const nl = Math.min(2, this.state.curLevel + 1);
+    this.pushUser('Quero entender melhor.');
+    this.setState({ curLevel: nl });
+    this.pushBotAfter(() => this.makeExplain(this.state.curIdx, nl, 'Boa. Então deixa eu detalhar:'));
+  };
+  resolver = () => {
+    const idx = this.state.curIdx;
+    const resolved = this.state.resolved.slice(); resolved[idx] = true;
+    this.setState(st => ({ resolved, chat: this.clearControls(st.chat) }));
+    this.pushSystem(this.PEND[idx].titulo + ' — entendido');
+    if (idx < this.PEND.length - 1) {
+      const next = idx + 1;
+      this.setState({ curIdx: next, curLevel: this.TOM_TO_LEVEL[this.state.tom] });
+      this.pushBotAfter(() => this.makeExplain(next, this.TOM_TO_LEVEL[this.state.tom], 'Próxima da sua lista:'));
+    } else {
+      this.pushBotAfter(() => ({ id: this.uid(), isFaq: true, faqLines: ['É isso, seu Raimundo. As três têm caminho.', 'Toque em "Ver meu resumo final" pra levar os passos no bolso — acessa quando precisar.'] }), 900);
+      setTimeout(() => this.setState({ allDone: true }), 1100);
+    }
+  };
+
+  pedirResumo = () => {
+    this.pushUser('E quanto de mata minha terra precisa?');
+    this.setState({ resumoShown: true });
+    this.pushBotAfter(() => this.makeResumo(), 1200);
+  };
+
+  faqByLines(lines) { return { id: this.uid(), isFaq: true, faqLines: lines }; }
+  faqAsk = (idx) => {
+    const f = this.FAQ[idx];
+    const qmap = ['O que é APP?', 'O que é Reserva Legal?', 'Isso é multa?'];
+    this.pushUser(qmap[idx] || f.keys[0]);
+    this.pushBotAfter(() => this.faqByLines(f.lines), 850);
+  };
+  onFaqInput = (e) => this.setState({ faqText: e.target.value });
+  onFaqKey = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.faqSend(); } };
+  faqSend = () => {
+    const text = (this.state.faqText || '').trim();
+    if (!text) return;
+    this.pushUser(text);
+    this.setState({ faqText: '' });
+    const match = this.fuzzyFaq(text);
+    const lines = match ? match.lines : ['Essa eu vou levar pro assistente entender melhor. Mas adianto: a maioria das pendências do CAR é de cadastro e tem conserto.', 'Quer que eu explique uma das suas três? É só tocar nelas.'];
+    this.pushBotAfter(() => this.faqByLines(lines), 950);
+  };
+
+  resetAll = () => {
+    this.stopTimer(); this.clearScan(); if (this.hasTTS()) window.speechSynthesis.cancel();
+    this.setState({ screen: 'home', tom: 'calma', curIdx: 0, curLevel: 1, chat: [], typing: false, resolved: [false, false, false], allDone: false, faqText: '', resumoShown: false, audioOpen: false, audioPlaying: false, audioPos: 0 });
+  };
+
+  // ---- audio / TTS ----
+  hasTTS() { return typeof window !== 'undefined' && 'speechSynthesis' in window; }
+  pickVoice() { if (!this.hasTTS()) return null; const vs = window.speechSynthesis.getVoices() || []; return vs.find(v => /pt[-_]BR/i.test(v.lang)) || vs.find(v => /^pt/i.test(v.lang)) || null; }
+  estDur(t) { return Math.max(4, Math.round((t || '').length / 13)); }
+  fmt(t) { t = Math.max(0, Math.round(t)); const m = Math.floor(t / 60), s = t % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
+  startTimer() { this.stopTimer(); this._t = setInterval(() => { this.setState(s => { let p = s.audioPos + 0.25; if (p >= s.audioDur) return { audioPos: s.audioDur }; return { audioPos: p }; }); }, 250); }
+  stopTimer() { if (this._t) { clearInterval(this._t); this._t = null; } }
+  speak(text) {
+    if (!this.hasTTS()) { this.startTimer(); return; }
+    const synth = window.speechSynthesis; synth.cancel();
+    const u = new SpeechSynthesisUtterance(text); u.lang = 'pt-BR'; u.rate = 0.98; u.pitch = 1;
+    const v = this.pickVoice(); if (v) u.voice = v;
+    const total = text.length;
+    u.onboundary = (e) => { if (typeof e.charIndex === 'number' && total > 0) this.setState(s => ({ audioPos: Math.min(s.audioDur, e.charIndex / total * s.audioDur) })); };
+    u.onend = () => { this.stopTimer(); this.setState(s => ({ audioPlaying: false, audioPos: s.audioDur })); };
+    this._utter = u;
+    const fire = () => { try { synth.cancel(); synth.speak(u); } catch (err) {} };
+    if (!synth.getVoices().length) { window.speechSynthesis.onvoiceschanged = () => { const vv = this.pickVoice(); if (vv) u.voice = vv; if (!synth.speaking) fire(); }; fire(); } else fire();
+    this.startTimer();
+  }
+  toggleAudio = () => {
+    const synth = this.hasTTS() ? window.speechSynthesis : null;
+    if (this.state.audioPlaying) { this.stopTimer(); if (synth) synth.pause(); this.setState({ audioPlaying: false }); }
+    else {
+      if (this.state.audioPos >= this.state.audioDur || !synth || !synth.speaking) this.setState({ audioPos: 0, audioPlaying: true }, () => this.speak(this._spoken || this.state.audioTitle));
+      else { synth.resume(); this.setState({ audioPlaying: true }); this.startTimer(); }
+    }
+  };
+  ouvir(title, text) { this.stopTimer(); const spoken = text || title; this._spoken = spoken; this.setState({ audioOpen: true, audioTitle: title, audioPos: 0, audioDur: this.estDur(spoken), audioPlaying: true }, () => this.speak(spoken)); }
+  closeAudio = () => { this.stopTimer(); if (this.hasTTS()) window.speechSynthesis.cancel(); this.setState({ audioOpen: false, audioPlaying: false }); };
+
+  ouvirMsg(m) {
+    if (m.isResumo) {
+      let t = 'Resumo legal da sua terra. ';
+      t += this.RESUMO_STEPS.map(s => s.tag + ': ' + s.txt).join(' ');
+      t += ' ' + this.RESUMO_CLOSE;
+      this.ouvir('Resumo legal da sua terra', t);
+    } else if (m.isFaq) {
+      this.ouvir('Resposta do Téo', m.faqLines.join(' '));
+    } else {
+      const txt = m.blocks.map(b => b.label + '. ' + b.lines.join(' ')).join(' ');
+      this.ouvir('Explicação do Téo', txt);
+    }
+  }
+  ouvirResumoFinal = () => {
+    const t = 'Seu plano, seu Raimundo. Primeiro: ajuste a Reserva Legal no CAR pelo número da matrícula do cartório. Segundo: marque no mapa a faixa de mata do Riacho Seco, trinta metros de cada lado. Terceiro: anexe a matrícula atualizada e reenvie pra análise. Pronto. As três têm caminho.';
+    this.ouvir('Seu plano em voz alta', t);
+  };
+
+  renderVals() {
+    const s = this.state;
+    const STEP_BUCKET = { home: 0, entrada: 1, scan: 1, ident: 2, tom: 3, chat: 4, resumo: 5 };
+    const STEP_LABELS = ['Início', 'Carta', 'Identificação', 'Tom', 'Conversa', 'Resumo'];
+    const curBucket = STEP_BUCKET[s.screen] || 0;
+    const steps = STEP_LABELS.map((_, i) => ({ dot: { width: i === curBucket ? '18px' : '7px', height: '7px', borderRadius: '999px', background: i <= curBucket ? 'var(--accent)' : 'rgba(255,255,255,.18)', transition: 'all .2s' } }));
+    const stepLabel = STEP_LABELS[curBucket];
+
+    const tagFor = (st) => ({ fontFamily: "'DM Mono', monospace", fontSize: '9px', fontWeight: 700, letterSpacing: '.05em', padding: '3px 7px', borderRadius: '5px', color: st === 'SUSPENSO' ? '#7A1E1E' : 'var(--warn-ink)', background: st === 'SUSPENSO' ? 'rgba(192,90,51,.16)' : 'var(--warn-bg)', border: '1px solid ' + (st === 'SUSPENSO' ? 'rgba(192,90,51,.5)' : 'var(--warn-line)'), whiteSpace: 'nowrap' });
+    const pendList = this.PEND.map(p => ({
+      titulo: p.titulo, resumo: p.resumo, status: p.status, tagStyle: tagFor(p.status),
+      iconWrap: { width: '30px', height: '30px', borderRadius: '9px', background: 'var(--surface-2)', border: '1px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+      iconDot: { width: '12px', height: '12px', borderRadius: '50%', background: p.color },
+    }));
+
+    const FF = "'Hanken Grotesk', system-ui, sans-serif";
+    const tomDefs = [
+      { tom: 'direto', icon: 'zap', title: 'Direto ao ponto', desc: 'Só o essencial e os passos pra resolver.', recommended: false, bg: '#FBEFD9' },
+      { tom: 'calma', icon: 'coffee', title: 'Explicado com calma', desc: 'Com o porquê de cada coisa, sem pressa.', recommended: true, bg: '#E3EFE3' },
+      { tom: 'completo', icon: 'book-open', title: 'Completo', desc: 'Com a base legal e os detalhes do Código.', recommended: false, bg: '#DDEEF0' },
+    ];
+    const tomOptions = tomDefs.map(t => ({
+      icon: t.icon, title: t.title, desc: t.desc, recommended: t.recommended, onPick: () => this.pickTom(t.tom),
+      cardStyle: { display: 'flex', alignItems: 'center', gap: '13px', background: 'var(--surface)', border: '1.5px solid ' + (t.recommended ? 'var(--accent)' : 'var(--line)'), borderRadius: '15px', padding: '14px 15px', cursor: 'pointer', fontFamily: FF, width: '100%' },
+      iconWrap: { width: '44px', height: '44px', borderRadius: '12px', background: t.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+    }));
+
+    const resolvedCount = s.resolved.filter(Boolean).length;
+    const progress = this.PEND.map((p, i) => {
+      const done = s.resolved[i]; const active = i === s.curIdx && !done && s.screen === 'chat';
+      return { short: p.short, done,
+        dot: { width: '16px', height: '16px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, background: done ? '#B6F03C' : (active ? 'transparent' : 'rgba(255,255,255,.12)'), border: done ? 'none' : '2px solid ' + (active ? '#B6F03C' : 'rgba(255,255,255,.3)') },
+        labelStyle: { fontSize: '10px', fontWeight: done ? 700 : 600, color: done ? '#EAF2E6' : (active ? '#EAF2E6' : '#A9C3A2'), whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } };
+    });
+
+    const chatView = s.chat.map(m => {
+      const o = Object.assign({}, m);
+      if (m.isBot || m.isFaq || m.isResumo) o.onOuvir = () => this.ouvirMsg(m);
+      return o;
+    });
+
+    const chips = [
+      { icon: 'leaf', label: 'Quanto de mata eu preciso?', onTap: this.pedirResumo },
+      { label: 'Isso é multa?', onTap: () => this.faqAsk(2) },
+      { label: 'O que é APP?', onTap: () => this.faqAsk(0) },
+    ];
+
+    const finalSteps = [
+      { n: '1', titulo: 'Acertar a Reserva Legal', acao: 'Pegue a matrícula no cartório e ajuste a RL no CAR pro mesmo número. Sua terra é pequena — confira o Art. 67 na OEMA.', base: 'Art. 12 · 18 · 67' },
+      { n: '2', titulo: 'Marcar a faixa do Riacho Seco', acao: 'Desenhe no mapa a APP de 30 m de cada lado do rio e reenvie.', base: 'Art. 4º, I' },
+      { n: '3', titulo: 'Anexar a matrícula atualizada', acao: 'Tire a certidão de inteiro teor no cartório, anexe no CAR e reenvie pra análise.', base: 'IN CAR' },
+    ];
+
+    const eqBars = [];
+    for (let i = 0; i < 28; i++) eqBars.push({ width: '5px', borderRadius: '3px', background: 'var(--accent)', height: '100%', transformOrigin: 'bottom', opacity: s.audioPlaying ? 1 : 0.4, animation: s.audioPlaying ? ('eqbar ' + (0.6 + (i % 5) * 0.18) + 's ease-in-out ' + (i * 0.05) + 's infinite') : 'none', transform: s.audioPlaying ? 'none' : 'scaleY(0.3)' });
+
+    const navItem = (on) => ({ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', cursor: 'pointer', background: 'transparent', border: 'none', color: on ? 'var(--brand)' : 'var(--faint)', fontFamily: FF });
+    return {
+      steps, stepLabel,
+      isHome: s.screen === 'home',
+      isEntrada: s.screen === 'entrada', isScan: s.screen === 'scan', isIdent: s.screen === 'ident', isTom: s.screen === 'tom', isChat: s.screen === 'chat', isResumo: s.screen === 'resumo',
+      scanHint: s.scanHint,
+      goHome: this.goHome, startJornada: this.startJornada, ouvirHome: this.ouvirHome, chatBack: this.chatBack,
+      navHomeStyle: navItem(true), navSavedStyle: navItem(false), navHelpStyle: navItem(false),
+      goEntrada: this.goEntrada, goIdent: this.goIdent, goTom: this.goTom, goChat: this.goChat, goResumo: this.goResumo, goScan: this.goScan, resetAll: this.resetAll,
+      pendList, tomOptions,
+      tomLabel: this.LEVEL_NAMES[this.TOM_TO_LEVEL[s.tom]].toLowerCase(),
+      resolvedCount, progress,
+      chatView, typing: s.typing, allDone: s.allDone,
+      chatRef: (el) => { this._chat = el; },
+      naoEntendi: this.naoEntendi, entenderMelhor: this.entenderMelhor, resolver: this.resolver,
+      chips, faqText: s.faqText, onFaqInput: this.onFaqInput, onFaqKey: this.onFaqKey, faqSend: this.faqSend,
+      finalSteps, ouvirResumoFinal: this.ouvirResumoFinal,
+      audioOpen: s.audioOpen, audioPlaying: s.audioPlaying, audioPaused: !s.audioPlaying, audioTitle: s.audioTitle, audioPct: s.audioDur > 0 ? (s.audioPos / s.audioDur * 100) : 0, audioCur: this.fmt(s.audioPos), audioDur: this.fmt(s.audioDur), toggleAudio: this.toggleAudio, closeAudio: this.closeAudio, eqBars,
+    };
+  }
+}
+</script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+</style>
+<script src="https://unpkg.com/lucide@latest"></script>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+  <!-- ====== S1 · CAPA ====== -->
+  <section id="exp-s1" data-label="Capa" data-speaker-notes="ExpliCAR: a burocracia do CAR traduzida para a linguagem de quem vive da terra. Téo, o técnico digital. 100% aberto, online." style="width:1920px; height:1080px; background:#22432B; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#F3ECDC; padding:108px 120px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+    <div style="position:absolute; right:-160px; top:-160px; width:760px; height:760px; border-radius:50%; background:#2F5D3A; opacity:.55;"></div>
+    <div style="position:absolute; right:120px; bottom:-220px; width:520px; height:520px; border-radius:50%; background:#266E77; opacity:.18;"></div>
+    <div style="position:relative; display:flex; align-items:center; gap:16px;">
+      <a href="./index.html" style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); color:#CFE0C9; border-radius:7px; padding:6px 12px; font-size:16px; font-weight:600; text-decoration:none;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</a>
+      <span style="display:inline-flex; align-items:center; gap:11px; background:#D99A2E; color:#3A2C0E; padding:11px 22px; border-radius:999px; font-family:'DM Mono',monospace; font-size:21px; font-weight:500; letter-spacing:.03em;"><span style="width:9px; height:9px; border-radius:50%; background:currentColor; opacity:.8;"></span>haCARthon · Desafio 3</span>
+      <img src="./assets/logo-limpo.png" alt="ExpliCAR" style="height:64px; margin-left:auto; opacity:.85;">
+    </div>
+    <div style="position:relative;">
+      <div style="font-family:'Bitter',serif; font-weight:800; font-size:188px; line-height:.92; letter-spacing:-0.025em;">ExpliCAR</div>
+      <div style="font-size:40px; line-height:1.4; color:#CFE0C9; max-width:1120px; margin-top:34px;">A burocracia do Cadastro Ambiental Rural traduzida para a linguagem de quem vive da terra — em conversa, no tom certo, com áudio incluso.</div>
+    </div>
+    <div style="position:relative; display:flex; gap:16px; flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:14px 26px; border-radius:999px; font-size:24px; font-weight:600;"><i data-lucide="bot" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Téo, o técnico digital</span>
+      <span style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:14px 26px; border-radius:999px; font-size:24px; font-weight:600;">100% código aberto</span>
+      <span style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:14px 26px; border-radius:999px; font-size:24px; font-weight:600;">Online</span>
+    </div>
+  </section>
+
+  <!-- ====== S2 · PROBLEMA ====== -->
+  <section id="exp-s2" data-label="Problema" data-speaker-notes="A notificação do SICAR chega em linguagem jurídica, cheia de siglas. O produtor não entende, sente medo de ser multa, e o processo fica parado por anos." style="width:1920px; height:1080px; background:#F3ECDC; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#221E17; padding:104px 120px; display:flex; flex-direction:column;">
+    <div style="font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.12em; color:#C05A33; margin-bottom:20px;">O PROBLEMA</div>
+    <div style="font-family:'Bitter',serif; font-weight:800; font-size:82px; line-height:1.05; letter-spacing:-0.02em; max-width:1300px;">A notificação chega em uma língua que não é a dele.</div>
+    <div style="display:flex; gap:56px; margin-top:72px; flex:1; align-items:center;">
+      <div style="position:relative; width:520px; flex-shrink:0;">
+        <div style="position:absolute; inset:0; transform:rotate(-3deg); background:#F8F1E1; border:1px solid #E4DABF; border-radius:16px; top:18px;"></div>
+        <div style="position:relative; background:#FCF8EE; border:1px solid #E4DABF; border-radius:16px; padding:40px 40px 46px; box-shadow:0 20px 50px rgba(0,0,0,.12); transform:rotate(1.5deg);">
+          <div style="display:flex; align-items:center; gap:16px; border-bottom:1px solid #E4DABF; padding-bottom:22px; margin-bottom:26px;">
+            <span style="width:48px; height:48px; border-radius:11px; background:#2F5D3A; display:flex; align-items:center; justify-content:center;"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="#F3ECDC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/></svg></span>
+            <span style="font-family:'DM Mono',monospace; font-size:18px; color:#8A7C62; line-height:1.3;">SISTEMA NACIONAL DE<br>CADASTRO AMBIENTAL RURAL</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:15px;">
+            <div style="height:13px; border-radius:6px; background:#E4DABF; width:92%;"></div>
+            <div style="display:flex; gap:11px; align-items:center; flex-wrap:wrap;"><span style="height:13px; border-radius:6px; background:#E4DABF; width:80px;"></span><span style="font-family:'DM Mono',monospace; font-size:19px; font-weight:700; color:#9A2C1A; background:rgba(192,90,51,.16); border:1px solid rgba(192,90,51,.45); padding:3px 13px; border-radius:7px;">Art. 12, §4º</span></div>
+            <div style="display:flex; gap:11px; align-items:center; flex-wrap:wrap;"><span style="font-family:'DM Mono',monospace; font-size:19px; font-weight:700; color:#9A2C1A; background:rgba(192,90,51,.16); border:1px solid rgba(192,90,51,.45); padding:3px 13px; border-radius:7px;">RL</span><span style="height:13px; border-radius:6px; background:#E4DABF; width:130px;"></span><span style="font-family:'DM Mono',monospace; font-size:19px; font-weight:700; color:#9A2C1A; background:rgba(192,90,51,.16); border:1px solid rgba(192,90,51,.45); padding:3px 13px; border-radius:7px;">APP</span></div>
+            <div style="height:13px; border-radius:6px; background:#E4DABF; width:74%;"></div>
+            <div style="display:flex; gap:11px; align-items:center;"><span style="height:13px; border-radius:6px; background:#E4DABF; width:96px;"></span><span style="font-family:'DM Mono',monospace; font-size:18px; font-weight:700; color:#7A5A1E; background:#FBEFD9; border:1px solid #D99A2E; padding:3px 13px; border-radius:7px;">SUSPENSO</span></div>
+            <div style="height:13px; border-radius:6px; background:#E4DABF; width:62%;"></div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:24px;">
+        <div style="display:flex; align-items:flex-start; gap:22px;"><i data-lucide="type" style="width:28px;height:28px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:31px; font-weight:800;">Siglas sem tradução</div><div style="font-size:25px; color:#6E5A41; line-height:1.4; margin-top:5px;">APP, RL, PRA, AC, artigos de lei — termos que o produtor nunca ouviu.</div></div></div>
+        <div style="display:flex; align-items:flex-start; gap:22px;"><i data-lucide="frown" style="width:28px;height:28px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:31px; font-weight:800;">Medo: "é multa?"</div><div style="font-size:25px; color:#6E5A41; line-height:1.4; margin-top:5px;">Sem entender, ele não procura ajuda — e às vezes acha que é punição.</div></div></div>
+        <div style="display:flex; align-items:flex-start; gap:22px;"><i data-lucide="hourglass" style="width:28px;height:28px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:31px; font-weight:800;">Processo parado por anos</div><div style="font-size:25px; color:#6E5A41; line-height:1.4; margin-top:5px;">Não por má vontade — por falta de entendimento. Custo ambiental, econômico e social.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== S3 · INSIGHT ====== -->
+  <section id="exp-s3" data-label="Insight" data-speaker-notes="Nos mutirões da SEMAS, processos parados há anos eram resolvidos em 20 minutos de conversa. O gargalo é de comunicação. A conversa lado a lado é o diferencial." style="width:1920px; height:1080px; background:#2F5D3A; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#F3ECDC; padding:108px 120px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;">
+    <div style="position:absolute; left:-140px; bottom:-200px; width:620px; height:620px; border-radius:50%; background:#266E77; opacity:.16;"></div>
+    <div style="position:relative; font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.12em; color:#9FE0A0; margin-bottom:30px;">O INSIGHT</div>
+    <div style="position:relative; display:flex; align-items:baseline; gap:40px; flex-wrap:wrap;">
+      <div style="font-family:'Bitter',serif; font-weight:800; font-size:300px; line-height:.8; letter-spacing:-0.03em; color:#D99A2E;">20</div>
+      <div style="max-width:1000px;">
+        <div style="font-family:'Bitter',serif; font-weight:800; font-size:76px; line-height:1.05; letter-spacing:-0.02em;">minutos de conversa resolvem o que travava há anos.</div>
+        <div style="font-size:34px; color:#CFE0C9; line-height:1.45; margin-top:32px;">Nos mutirões da SEMAS, o técnico traduz a lei na língua do produtor, no tom certo, com os dados da terra dele. O gargalo nunca foi técnico — é de comunicação.</div>
+      </div>
+    </div>
+    <div style="position:relative; margin-top:64px; display:inline-flex; align-items:center; gap:14px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); padding:16px 28px; border-radius:999px; font-size:25px; font-weight:600; align-self:flex-start;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9FE0A0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Validado em campo, não em hipótese</div>
+  </section>
+
+  <!-- ====== S4 · SOLUÇÃO ====== -->
+  <section id="exp-s4" data-label="Solução" data-speaker-notes="O ExpliCAR digitaliza o mutirão: Téo, um técnico que cabe no bolso. Traduz o juridiquês, usa os dados reais da terra, e fala no tom certo. Estrutura: o que significa, por que aconteceu, o que fazer." style="width:1920px; height:1080px; background:#F3ECDC; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#221E17; padding:104px 120px; display:flex; flex-direction:column;">
+    <div style="font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.12em; color:#C05A33; margin-bottom:20px;">A SOLUÇÃO</div>
+    <div style="display:flex; align-items:center; gap:34px;">
+      <span style="width:108px; height:108px; border-radius:50%; background:#D99A2E; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#3A2C0E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <div style="font-family:'Bitter',serif; font-weight:800; font-size:84px; line-height:1.02; letter-spacing:-0.02em;">Téo, o técnico que cabe no bolso.</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:30px; margin-top:80px;">
+      <div style="background:#FCF8EE; border:1px solid #E4DABF; border-top:6px solid #C05A33; border-radius:18px; padding:40px 38px;"><i data-lucide="message-square" style="width:44px;height:44px;display:block;flex-shrink:0;"></i><div style="font-size:33px; font-weight:800; margin-top:20px;">Traduz o juridiquês</div><div style="font-size:25px; color:#6E5A41; line-height:1.45; margin-top:12px;">Toda sigla vira palavra do dia a dia. Nunca diz "é simples".</div></div>
+      <div style="background:#FCF8EE; border:1px solid #E4DABF; border-top:6px solid #D99A2E; border-radius:18px; padding:40px 38px;"><i data-lucide="map" style="width:44px;height:44px;display:block;flex-shrink:0;"></i><div style="font-size:33px; font-weight:800; margin-top:20px;">Usa os dados da terra</div><div style="font-size:25px; color:#6E5A41; line-height:1.45; margin-top:12px;">Nome da propriedade, área, bioma, o rio — a regra explicada na realidade dele.</div></div>
+      <div style="background:#FCF8EE; border:1px solid #E4DABF; border-top:6px solid #266E77; border-radius:18px; padding:40px 38px;"><i data-lucide="sliders" style="width:44px;height:44px;display:block;flex-shrink:0;"></i><div style="font-size:33px; font-weight:800; margin-top:20px;">Fala no tom certo</div><div style="font-size:25px; color:#6E5A41; line-height:1.45; margin-top:12px;">Direto, com calma ou completo — e se ajusta sozinho aos sinais do produtor.</div></div>
+    </div>
+    <div style="margin-top:auto; display:flex; align-items:center; gap:20px; background:#E3EFE3; border:1px solid #2F5D3A; border-radius:16px; padding:26px 34px;">
+      <span style="font-family:'DM Mono',monospace; font-size:22px; color:#2F5D3A; font-weight:700;">ESTRUTURA DE CADA RESPOSTA</span>
+      <span style="font-size:28px; font-weight:700; color:#221E17;">O que significa → Por que aconteceu → O que fazer</span>
+    </div>
+  </section>
+
+  <!-- ====== S5 · JORNADA ====== -->
+  <section id="exp-s5" data-label="Jornada" data-speaker-notes="A jornada: da notificação à identificação da propriedade, escolha do tom, chat adaptativo com gamificação e áudio, até o resumo com os passos numerados." style="width:1920px; height:1080px; background:#FCF8EE; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#221E17; padding:104px 120px; display:flex; flex-direction:column;">
+    <div style="font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.12em; color:#C05A33; margin-bottom:20px;">A JORNADA</div>
+    <div style="font-family:'Bitter',serif; font-weight:800; font-size:78px; line-height:1.04; letter-spacing:-0.02em;">Da carta incompreensível ao plano no bolso.</div>
+    <div style="display:flex; align-items:stretch; gap:0; margin-top:96px;">
+      <div style="flex:1; text-align:center; display:flex; flex-direction:column; align-items:center;"><i data-lucide="mail" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div style="font-size:28px; font-weight:800; margin-top:22px;">Notificação</div><div style="font-size:21px; color:#6E5A41; margin-top:8px; line-height:1.35;">QR code ou CPF + CAR</div></div>
+      <div style="flex:0 0 60px; display:flex; align-items:center; justify-content:center; padding-bottom:64px;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#CFC3A6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div style="flex:1; text-align:center; display:flex; flex-direction:column; align-items:center;"><i data-lucide="flag" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div style="font-size:28px; font-weight:800; margin-top:22px;">Identificação</div><div style="font-size:21px; color:#6E5A41; margin-top:8px; line-height:1.35;">Propriedade + 3 pendências</div></div>
+      <div style="flex:0 0 60px; display:flex; align-items:center; justify-content:center; padding-bottom:64px;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#CFC3A6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div style="flex:1; text-align:center; display:flex; flex-direction:column; align-items:center;"><i data-lucide="sliders" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div style="font-size:28px; font-weight:800; margin-top:22px;">Escolha do tom</div><div style="font-size:21px; color:#6E5A41; margin-top:8px; line-height:1.35;">Direto · calma · completo</div></div>
+      <div style="flex:0 0 60px; display:flex; align-items:center; justify-content:center; padding-bottom:64px;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#CFC3A6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div style="flex:1; text-align:center; display:flex; flex-direction:column; align-items:center;"><i data-lucide="message-circle" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div style="font-size:28px; font-weight:800; margin-top:22px;">Chat adaptativo</div><div style="font-size:21px; color:#6E5A41; margin-top:8px; line-height:1.35;">Gamificação + áudio</div></div>
+      <div style="flex:0 0 60px; display:flex; align-items:center; justify-content:center; padding-bottom:64px;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#CFC3A6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div style="flex:1; text-align:center; display:flex; flex-direction:column; align-items:center;"><i data-lucide="check-circle" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div style="font-size:28px; font-weight:800; margin-top:22px;">Resumo + saída</div><div style="font-size:21px; color:#6E5A41; margin-top:8px; line-height:1.35;">Passos · salvar · enviar</div></div>
+    </div>
+    <div style="margin-top:auto; font-size:26px; color:#6E5A41; line-height:1.5; max-width:1400px;">No chat, a cada "não entendi" o Téo simplifica; a cada "quero saber mais" ele aprofunda. A barra <b style="color:#221E17;">"X de 3 resolvidas"</b> reduz a ansiedade e mostra o avanço.</div>
+  </section>
+
+  <!-- ====== S6 · DIFERENCIAIS ====== -->
+  <section id="exp-s6" data-label="Diferenciais" data-speaker-notes="Quatro diferenciais: persona adaptativa com 3 tons, 100% código aberto, LGPD por desenho, mobile-first." style="width:1920px; height:1080px; background:#22432B; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#F3ECDC; padding:104px 120px; display:flex; flex-direction:column;">
+    <div style="font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.12em; color:#9FE0A0; margin-bottom:20px;">DIFERENCIAIS</div>
+    <div style="font-family:'Bitter',serif; font-weight:800; font-size:78px; line-height:1.04; letter-spacing:-0.02em;">Por que o ExpliCAR é diferente.</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:74px; flex:1;">
+      <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-left:6px solid #D99A2E; border-radius:18px; padding:38px 40px; display:flex; gap:28px; align-items:flex-start;"><i data-lucide="sliders" style="width:50px;height:50px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:36px; font-weight:800;">Persona adaptativa</div><div style="font-size:25px; color:#CFE0C9; line-height:1.45; margin-top:12px;">3 tons que mudam em tempo real conforme a reação do produtor — sem ele precisar pedir.</div></div></div>
+      <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-left:6px solid #266E77; border-radius:18px; padding:38px 40px; display:flex; gap:28px; align-items:flex-start;"><i data-lucide="unlock" style="width:50px;height:50px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:36px; font-weight:800;">100% código aberto</div><div style="font-size:25px; color:#CFE0C9; line-height:1.45; margin-top:12px;">MIT / Apache 2.0. LLM agnóstico — a persona controla o comportamento, não o modelo.</div></div></div>
+      <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-left:6px solid #C05A33; border-radius:18px; padding:38px 40px; display:flex; gap:28px; align-items:flex-start;"><i data-lucide="lock" style="width:50px;height:50px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:36px; font-weight:800;">LGPD por desenho</div><div style="font-size:25px; color:#CFE0C9; line-height:1.45; margin-top:12px;">Pseudonimização, minimização, LLM em rede interna. O código é aberto; os dados, não.</div></div></div>
+      <div style="background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-left:6px solid #9FE0A0; border-radius:18px; padding:38px 40px; display:flex; gap:28px; align-items:flex-start;"><i data-lucide="smartphone" style="width:50px;height:50px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:36px; font-weight:800;">Mobile-first</div><div style="font-size:25px; color:#CFE0C9; line-height:1.45; margin-top:12px;">Feito para o celular do produtor. Cada tela pensada para quem está no campo, sem telas largas.</div></div></div>
+    </div>
+  </section>
+
+  <!-- ====== S7 · MVP ====== -->
+  <section id="exp-s7" data-label="MVP" data-speaker-notes="Funcionalidades do MVP: chat com Téo, gamificação, áudio com OmniVoice, FAQ contextual com tolerância a erro, e o Resumo Legal Personalizado." style="width:1920px; height:1080px; background:#F3ECDC; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#221E17; padding:104px 120px; display:flex; flex-direction:column;">
+    <div style="font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.12em; color:#C05A33; margin-bottom:20px;">FUNCIONALIDADES DO MVP</div>
+    <div style="font-family:'Bitter',serif; font-weight:800; font-size:78px; line-height:1.04; letter-spacing:-0.02em;">Cinco peças que já demonstramos.</div>
+    <div style="display:flex; gap:24px; margin-top:74px; flex:1;">
+      <div style="flex:1.5; background:#2F5D3A; color:#F3ECDC; border-radius:20px; padding:42px 40px; display:flex; flex-direction:column;"><i data-lucide="message-circle" style="width:52px;height:52px;display:block;flex-shrink:0;"></i><div style="font-size:38px; font-weight:800; margin-top:20px;">Chat com Téo</div><div style="font-size:25px; color:#CFE0C9; line-height:1.45; margin-top:14px;">O coração da solução. Explica cada pendência com a estrutura clara e os dados da propriedade.</div><div style="margin-top:auto; font-family:'DM Mono',monospace; font-size:20px; color:#9FE0A0; padding-top:24px;">+ Resumo Legal Personalizado</div></div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:24px;">
+        <div style="flex:1; background:#FCF8EE; border:1px solid #E4DABF; border-radius:18px; padding:30px 34px; display:flex; align-items:center; gap:24px;"><i data-lucide="bar-chart-3" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:30px; font-weight:800;">Gamificação</div><div style="font-size:22px; color:#6E5A41; line-height:1.35; margin-top:6px;">Barra "1 de 3" reduz a ansiedade.</div></div></div>
+        <div style="flex:1; background:#FCF8EE; border:1px solid #E4DABF; border-radius:18px; padding:30px 34px; display:flex; align-items:center; gap:24px;"><i data-lucide="volume-2" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:30px; font-weight:800;">Áudio · OmniVoice</div><div style="font-size:22px; color:#6E5A41; line-height:1.35; margin-top:6px;">Voz processada no servidor. Para quem prefere ouvir.</div></div></div>
+        <div style="flex:1; background:#FCF8EE; border:1px solid #E4DABF; border-radius:18px; padding:30px 34px; display:flex; align-items:center; gap:24px;"><i data-lucide="search" style="width:42px;height:42px;display:inline-block;flex-shrink:0;"></i><div><div style="font-size:30px; font-weight:800;">FAQ contextual</div><div style="font-size:22px; color:#6E5A41; line-height:1.35; margin-top:6px;">Entende mesmo com erro de digitação.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== S8 · IMPACTO ====== -->
+  <section id="exp-s8" data-label="Impacto" data-speaker-notes="O impacto: o produtor sai de 'não sei' para 'vou resolver'. Menos processos parados, melhor qualidade dos dados, mais preservação e segurança jurídica." style="width:1920px; height:1080px; background:#266E77; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#E9F4F2; padding:104px 120px; display:flex; flex-direction:column; position:relative; overflow:hidden;">
+    <div style="position:absolute; right:-180px; top:-140px; width:640px; height:640px; border-radius:50%; background:#2F5D3A; opacity:.3;"></div>
+    <div style="position:relative; font-family:'DM Mono',monospace; font-size:24px; letter-spacing:.12em; color:#9FD8DC; margin-bottom:24px;">IMPACTO ESPERADO</div>
+    <div style="position:relative; font-family:'Bitter',serif; font-weight:800; font-size:104px; line-height:1.0; letter-spacing:-0.025em; max-width:1400px;">De "não sei" para "vou resolver".</div>
+    <div style="position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:26px; margin-top:auto;">
+      <div style="background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:16px; padding:34px 30px;"><div style="font-size:27px; font-weight:800; color:#FFFFFF;">Produtor</div><div style="font-size:22px; color:#CFE9EA; line-height:1.45; margin-top:12px;">Entende, perde o medo, sabe o que fazer.</div></div>
+      <div style="background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:16px; padding:34px 30px;"><div style="font-size:27px; font-weight:800; color:#FFFFFF;">SICAR</div><div style="font-size:22px; color:#CFE9EA; line-height:1.45; margin-top:12px;">Menos processos parados, dados melhores.</div></div>
+      <div style="background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:16px; padding:34px 30px;"><div style="font-size:27px; font-weight:800; color:#FFFFFF;">OEMAs</div><div style="font-size:22px; color:#CFE9EA; line-height:1.45; margin-top:12px;">Menos retrabalho e atendimento repetitivo.</div></div>
+      <div style="background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); border-radius:16px; padding:34px 30px;"><div style="font-size:27px; font-weight:800; color:#FFFFFF;">Sociedade</div><div style="font-size:22px; color:#CFE9EA; line-height:1.45; margin-top:12px;">Mais preservação e segurança jurídica.</div></div>
+    </div>
+  </section>
+
+  <!-- ====== S9 · EQUIPE / OBRIGADO ====== -->
+  <section id="exp-s9" data-label="Obrigado" data-speaker-notes="Obrigado. ExpliCAR — Desafio 3 do haCARthon. Mentoria de Lorrana Nunes. O que travava há anos agora cabe no bolso do produtor." style="width:1920px; height:1080px; background:#22432B; font-family:'Hanken Grotesk',system-ui,sans-serif; color:#F3ECDC; padding:112px 120px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden;">
+    <div style="position:absolute; right:-160px; bottom:-200px; width:720px; height:720px; border-radius:50%; background:#2F5D3A; opacity:.5;"></div>
+    <div style="position:relative; display:flex; align-items:center; gap:20px;">
+      <span style="width:72px; height:72px; border-radius:50%; background:#D99A2E; display:flex; align-items:center; justify-content:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3A2C0E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <span style="font-family:'Bitter',serif; font-weight:800; font-size:46px;">ExpliCAR</span>
+    </div>
+    <div style="position:relative;">
+      <div style="font-family:'Bitter',serif; font-weight:800; font-size:152px; line-height:.95; letter-spacing:-0.025em;">Obrigado.</div>
+      <div style="font-size:36px; color:#CFE0C9; line-height:1.45; margin-top:30px; max-width:1180px;">O que travava há anos agora cabe no bolso do seu Raimundo. Sem sair de casa, sem juridiquês — online.</div>
+    </div>
+    <div style="position:relative; display:flex; gap:48px; flex-wrap:wrap; align-items:center;">
+      <div><div style="font-family:'DM Mono',monospace; font-size:19px; letter-spacing:.08em; color:#9FE0A0; margin-bottom:8px;">DESAFIO</div><div style="font-size:26px; font-weight:700;">haCARthon · Desafio 3</div></div>
+      <div><div style="font-family:'DM Mono',monospace; font-size:19px; letter-spacing:.08em; color:#9FE0A0; margin-bottom:8px;">MENTORIA</div><div style="font-size:26px; font-weight:700;">Lorrana Nunes (@lorrana_nunes)</div></div>
+      <div><div style="font-family:'DM Mono',monospace; font-size:19px; letter-spacing:.08em; color:#9FE0A0; margin-bottom:8px;">EQUIPE</div><div style="font-size:26px; font-weight:700;">Equipe ExpliCAR</div></div>
+    </div>
+  </section>
+
+</x-import>
+</x-dc>
+<script>lucide.createIcons();</script>
+</body>
+</html>

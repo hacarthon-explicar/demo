@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  [data-fc] {
+    --stage:#EFEBE1; --paper:#FCF8EE; --ink:#221E17; --muted:#6E5A41; --faint:#8A7C62;
+    --line:#E4DABF; --wire:#CFC3A6; --brand:#2F5D3A; --terra:#C05A33; --gold:#D99A2E; --teal:#266E77;
+    --soft:#E3EFE3; --display:'Bitter', serif;
+  }
+</style>
+<script src="https://unpkg.com/lucide@latest"></script>
+</helmet>
+
+<div data-fc="1" style="width:100%; min-height:100vh; background:var(--stage); font-family:'Hanken Grotesk', system-ui, sans-serif; color:var(--ink); padding:48px 24px 80px;">
+  <div style="max-width:920px; margin:0 auto;">
+
+    <!-- HEADER -->
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:14px;">
+      <a href="./index.html" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:1px solid var(--faint); color:var(--faint); border-radius:7px; padding:4px 10px; font-size:11px; font-weight:600; text-decoration:none; margin-right:4px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Inicio</a>
+      <span style="display:inline-flex; align-items:center; gap:8px; background:var(--brand); color:var(--paper); padding:5px 12px; border-radius:999px; font-family:'DM Mono', monospace; font-size:11px; font-weight:500; letter-spacing:.04em;"><span style="width:6px; height:6px; border-radius:50%; background:currentColor; opacity:.85;"></span>haCARthon · DESAFIO 3</span>
+      <img src="./assets/logo-limpo.png" alt="ExpliCAR" style="height:28px; margin-left:auto; opacity:.7;">
+    </div>
+    <h1 style="font-family:var(--display); font-weight:800; font-size:40px; letter-spacing:-0.02em; margin:6px 0 8px; line-height:1.05;">ExpliCAR · Fluxogramas do sistema</h1>
+    <p style="font-size:15.5px; color:var(--muted); max-width:660px; line-height:1.55; margin:0 0 8px;">Como a notificação do SICAR vira conversa: a jornada do produtor, a arquitetura aberta, a adaptação de tom do Téo e a lógica do Resumo Legal Personalizado.</p>
+    <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:40px; font-size:12px; color:var(--faint);">
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:11px; height:11px; border-radius:3px; background:var(--gold);"></span>Entrada</span>
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:11px; height:11px; border-radius:3px; background:var(--brand);"></span>Processo</span>
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:11px; height:11px; border-radius:3px; background:var(--teal);"></span>Decisão</span>
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:11px; height:11px; border-radius:3px; background:var(--terra);"></span>Saída / produtor</span>
+      <span style="display:flex; align-items:center; gap:6px;"><span style="width:11px; height:11px; border-radius:3px; background:var(--ink);"></span>Dado / infra</span>
+    </div>
+
+    <!-- ============ DIAGRAM 1 — JORNADA ============ -->
+    <section style="background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px 30px 36px; margin-bottom:30px; box-shadow:0 8px 28px rgba(0,0,0,.06);">
+      <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--terra); margin-bottom:5px;">FLUXO 01</div>
+      <h2 style="font-family:var(--display); font-weight:800; font-size:24px; margin:0 0 4px;">Jornada do produtor</h2>
+      <p style="font-size:13.5px; color:var(--muted); margin:0 0 26px;">Da carta incompreensível ao plano de três passos no bolso.</p>
+
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <div style="background:var(--gold); color:#3A2C0E; border-radius:13px; padding:13px 22px; text-align:center; box-shadow:0 3px 10px rgba(0,0,0,.07);"><div style="font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.08em; opacity:.75;">GATILHO</div><div style="font-weight:800; font-size:15px;"><i data-lucide="mail" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Notificação do SICAR</div></div>
+
+        <div style="width:2px; height:26px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="background:var(--paper); border:1.5px solid var(--teal); color:var(--teal); border-radius:999px; padding:10px 20px; font-weight:700; font-size:13.5px;">Como o produtor entra?</div>
+
+        <div style="display:flex; gap:30px; margin-top:6px; align-items:flex-start;">
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:2px; height:22px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+            <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--faint); margin:2px 0 6px;">QR code</div>
+            <div style="background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:11px 16px; text-align:center; min-width:150px;"><div style="font-weight:700; font-size:13px;"><i data-lucide="camera" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Lê o QR da carta</div><div style="font-size:11px; color:var(--muted); margin-top:2px;">CAR pré-carregado</div></div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div style="width:2px; height:22px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+            <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--faint); margin:2px 0 6px;">CPF + CAR</div>
+            <div style="background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:11px 16px; text-align:center; min-width:150px;"><div style="font-weight:700; font-size:13px;"><i data-lucide="keyboard" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Digita CPF e código</div><div style="font-size:11px; color:var(--muted); margin-top:2px;">do CAR</div></div>
+          </div>
+        </div>
+
+        <div style="width:2px; height:26px; background:var(--wire); margin-top:10px;"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="background:var(--brand); color:var(--paper); border-radius:13px; padding:13px 22px; text-align:center; min-width:280px;"><div style="font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.08em; opacity:.7;">IDENTIFICAÇÃO</div><div style="font-weight:800; font-size:15px;"><i data-lucide="flag" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Propriedade reconhecida · 3 pendências</div></div>
+
+        <div style="width:2px; height:26px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="background:var(--paper); border:1.5px solid var(--teal); color:var(--teal); border-radius:999px; padding:10px 20px; font-weight:700; font-size:13.5px;"><i data-lucide="sliders" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Escolha do tom</div>
+        <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; justify-content:center;">
+          <span style="background:#FBEFD9; color:#7A5A1E; border:1px solid var(--gold); border-radius:9px; padding:7px 13px; font-size:12px; font-weight:700;"><i data-lucide="zap" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Direto ao ponto</span>
+          <span style="background:var(--soft); color:var(--brand); border:1px solid var(--brand); border-radius:9px; padding:7px 13px; font-size:12px; font-weight:700;"><i data-lucide="coffee" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Explicado com calma</span>
+          <span style="background:#DDEEF0; color:var(--teal); border:1px solid var(--teal); border-radius:9px; padding:7px 13px; font-size:12px; font-weight:700;"><i data-lucide="book-open" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Completo</span>
+        </div>
+
+        <div style="width:2px; height:26px; background:var(--wire); margin-top:12px;"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <!-- chat loop -->
+        <div style="background:var(--brand); color:var(--paper); border-radius:13px; padding:13px 22px; text-align:center; min-width:280px;"><div style="font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.08em; opacity:.7;">CHAT COM TÉO</div><div style="font-weight:800; font-size:15px;"><i data-lucide="bot" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Explica a pendência com os dados da terra</div></div>
+
+        <div style="width:2px; height:24px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="background:var(--paper); border:1.5px solid var(--teal); color:var(--teal); border-radius:999px; padding:10px 20px; font-weight:700; font-size:13.5px;">O produtor entendeu?</div>
+
+        <div style="display:flex; gap:18px; margin-top:10px; flex-wrap:wrap; justify-content:center;">
+          <div style="background:#FBEFD9; border:1px dashed var(--gold); border-radius:11px; padding:10px 14px; max-width:200px; text-align:center;"><div style="font-size:11px; font-weight:800; color:#7A5A1E;">NÃO — "não entendi"</div><div style="font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.35;"><i data-lucide="rotate-ccw" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Téo simplifica e reformula com outra imagem</div></div>
+          <div style="background:#DDEEF0; border:1px dashed var(--teal); border-radius:11px; padding:10px 14px; max-width:200px; text-align:center;"><div style="font-size:11px; font-weight:800; color:var(--teal);">DÚVIDA — "e se?"</div><div style="font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.35;"><i data-lucide="arrow-up" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Téo aprofunda no contexto</div></div>
+          <div style="background:var(--soft); border:1px solid var(--brand); border-radius:11px; padding:10px 14px; max-width:200px; text-align:center;"><div style="font-size:11px; font-weight:800; color:var(--brand);">SIM <i data-lucide="check" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i></div><div style="font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.35;"><i data-lucide="bar-chart-3" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Avança · barra "2 de 3"</div></div>
+        </div>
+        <div style="font-size:11.5px; color:var(--faint); margin-top:12px; font-style:italic;"><i data-lucide="rotate-cw" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Repete por pendência até resolver as três</div>
+
+        <div style="width:2px; height:26px; background:var(--wire); margin-top:8px;"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="background:var(--terra); color:#FBF1E9; border-radius:13px; padding:13px 22px; text-align:center; min-width:300px;"><div style="font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.08em; opacity:.78;">RESUMO + SAÍDA</div><div style="font-weight:800; font-size:15px;"><i data-lucide="check-circle" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Passos numerados · <i data-lucide="volume-2" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> ouvir · <i data-lucide="save" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> salvar · <i data-lucide="upload" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> enviar</div></div>
+      </div>
+    </section>
+
+    <!-- ============ DIAGRAM 2 — ARQUITETURA ============ -->
+    <section style="background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px 30px 36px; margin-bottom:30px; box-shadow:0 8px 28px rgba(0,0,0,.06);">
+      <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--terra); margin-bottom:5px;">FLUXO 02</div>
+      <h2 style="font-family:var(--display); font-weight:800; font-size:24px; margin:0 0 4px;">Arquitetura — 100% código aberto</h2>
+      <p style="font-size:13.5px; color:var(--muted); margin:0 0 26px;">A persona controla o comportamento; o modelo é agnóstico; os dados ficam protegidos.</p>
+
+      <div style="display:flex; flex-direction:column; align-items:center;">
+        <div style="background:var(--terra); color:#FBF1E9; border-radius:13px; padding:14px 22px; text-align:center; width:100%; max-width:560px;"><div style="font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.08em; opacity:.78;">FRONTEND · PWA (React)</div><div style="font-weight:800; font-size:15px; margin-top:2px;">Mobile-first · online · áudio OmniVoice</div></div>
+
+        <div style="width:2px; height:24px; background:var(--wire);"></div><div style="font-family:'DM Mono',monospace; font-size:9.5px; color:var(--faint); margin-bottom:2px;">HTTPS</div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="background:#244A2D; color:var(--paper); border-radius:15px; padding:18px; width:100%; max-width:560px;">
+          <div style="font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.08em; opacity:.7; margin-bottom:11px;">BACKEND · Python / FastAPI</div>
+          <div style="display:flex; gap:8px; margin-bottom:11px;">
+            <div style="flex:1; background:rgba(255,255,255,.1); border-radius:9px; padding:9px; text-align:center; font-size:12px; font-weight:700;">Chat</div>
+            <div style="flex:1; background:rgba(255,255,255,.1); border-radius:9px; padding:9px; text-align:center; font-size:12px; font-weight:700;">FAQ contextual</div>
+            <div style="flex:1; background:rgba(255,255,255,.1); border-radius:9px; padding:9px; text-align:center; font-size:12px; font-weight:700;">Gamificação</div>
+          </div>
+          <div style="background:var(--gold); color:#3A2C0E; border-radius:11px; padding:12px 15px; text-align:center;"><div style="font-weight:800; font-size:14px;"><i data-lucide="settings" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Orquestrador da Persona Téo</div><div style="font-size:11.5px; margin-top:3px; opacity:.85;">seleciona o tom · aplica as regras · monta o prompt com os dados do imóvel</div></div>
+        </div>
+
+        <div style="width:2px; height:24px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; width:100%; max-width:560px;">
+          <div style="flex:1; min-width:170px; background:var(--paper); border:1.5px solid var(--brand); border-radius:12px; padding:13px 15px; text-align:center;"><div style="font-weight:800; font-size:13.5px; color:var(--brand);"><i data-lucide="brain" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> LLM agnóstico</div><div style="font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.4;">Llama 3 · Mistral · Qwen — inferência local (Ollama / vLLM)</div></div>
+          <div style="flex:1; min-width:170px; background:var(--paper); border:1.5px solid var(--teal); border-radius:12px; padding:13px 15px; text-align:center;"><div style="font-weight:800; font-size:13.5px; color:var(--teal);"><i data-lucide="plug" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> Adapter do SICAR</div><div style="font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.4;">mock na demo → API real depois, sem mexer no resto</div></div>
+        </div>
+
+        <div style="width:2px; height:24px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; width:100%; max-width:560px;">
+          <div style="flex:1; min-width:170px; background:var(--ink); color:var(--paper); border-radius:12px; padding:13px 15px; text-align:center;"><div style="font-weight:800; font-size:13.5px;"><i data-lucide="database" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> PostgreSQL</div><div style="font-size:11.5px; opacity:.75; margin-top:3px; line-height:1.4;">propriedades · progresso · histórico (criptografado em repouso)</div></div>
+          <div style="flex:1; min-width:170px; background:var(--soft); border:1.5px dashed var(--brand); border-radius:12px; padding:13px 15px; text-align:center;"><div style="font-weight:800; font-size:13.5px; color:var(--brand);"><i data-lucide="lock" style="width:1em;height:1em;display:inline-block;vertical-align:middle;"></i> LGPD por desenho</div><div style="font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.4;">pseudonimização · minimização · LLM em rede interna</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DIAGRAM 3 — ADAPTAÇÃO DE NÍVEIS ============ -->
+    <section style="background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px 30px 36px; margin-bottom:30px; box-shadow:0 8px 28px rgba(0,0,0,.06);">
+      <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--terra); margin-bottom:5px;">FLUXO 03</div>
+      <h2 style="font-family:var(--display); font-weight:800; font-size:24px; margin:0 0 4px;">Adaptação de tom da persona</h2>
+      <p style="font-size:13.5px; color:var(--muted); margin:0 0 28px;">O produtor escolhe um nível no início. Téo sobe ou desce conforme os sinais — sem esperar ele pedir.</p>
+
+      <div style="display:flex; align-items:stretch; gap:0; flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px;">
+        <div style="flex:1; min-width:175px; background:#FBEFD9; border:1.5px solid var(--gold); border-radius:14px; padding:16px 16px;">
+          <i data-lucide="zap" style="width:22px;height:22px;display:block;flex-shrink:0;"></i>
+          <div style="font-family:var(--display); font-weight:800; font-size:16px; color:#7A5A1E; margin-top:4px;">Direto ao ponto</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.45;">O que significa em 1 frase · por que aconteceu · passos curtos.</div>
+        </div>
+
+        <div style="flex:0 0 84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:0 4px;">
+          <div style="text-align:center;"><div style="font-size:9.5px; color:var(--teal); font-weight:800;">⟵ sobe</div><div style="font-size:10px; color:var(--faint); line-height:1.25;">"mas por quê?"</div></div>
+          <div style="width:100%; height:2px; background:var(--wire);"></div>
+          <div style="text-align:center;"><div style="font-size:9.5px; color:var(--terra); font-weight:800;">desce ⟶</div><div style="font-size:10px; color:var(--faint); line-height:1.25;">"pode anotar"</div></div>
+        </div>
+
+        <div style="flex:1; min-width:175px; background:var(--soft); border:1.5px solid var(--brand); border-radius:14px; padding:16px 16px;">
+          <i data-lucide="coffee" style="width:22px;height:22px;display:block;flex-shrink:0;"></i>
+          <div style="font-family:var(--display); font-weight:800; font-size:16px; color:var(--brand); margin-top:4px;">Explicado com calma</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.45;">Imagem concreta · a lógica da regra · passos com o porquê.</div>
+        </div>
+
+        <div style="flex:0 0 84px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:0 4px;">
+          <div style="text-align:center;"><div style="font-size:9.5px; color:var(--teal); font-weight:800;">⟵ sobe</div><div style="font-size:10px; color:var(--faint); line-height:1.25;">"e o caso do vizinho?"</div></div>
+          <div style="width:100%; height:2px; background:var(--wire);"></div>
+          <div style="text-align:center;"><div style="font-size:9.5px; color:var(--terra); font-weight:800;">desce ⟶</div><div style="font-size:10px; color:var(--faint); line-height:1.25;">franze a testa</div></div>
+        </div>
+
+        <div style="flex:1; min-width:175px; background:#DDEEF0; border:1.5px solid var(--teal); border-radius:14px; padding:16px 16px;">
+          <i data-lucide="book-open" style="width:22px;height:22px;display:block;flex-shrink:0;"></i>
+          <div style="font-family:var(--display); font-weight:800; font-size:16px; color:var(--teal); margin-top:4px;">Completo</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:6px; line-height:1.45;">Definição precisa · base legal · passos, prazos e referências.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:22px; background:var(--stage); border-radius:13px; padding:15px 18px; display:flex; gap:22px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:220px;"><div style="font-size:11px; font-weight:800; color:var(--terra); letter-spacing:.03em; margin-bottom:6px;">SINAIS QUE FAZEM DESCER</div><div style="font-size:12.5px; color:var(--muted); line-height:1.6;">Silêncio, olhar perdido · "pode deixar que eu resolvo" · pressa.</div></div>
+        <div style="flex:1; min-width:220px;"><div style="font-size:11px; font-weight:800; color:var(--teal); letter-spacing:.03em; margin-bottom:6px;">SINAIS QUE FAZEM SUBIR</div><div style="font-size:12.5px; color:var(--muted); line-height:1.6;">"mas por quê?" · "e se?" · faz a ponte com a própria terra.</div></div>
+      </div>
+    </section>
+
+    <!-- ============ DIAGRAM 4 — RESUMO LEGAL ============ -->
+    <section style="background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px 30px 36px; box-shadow:0 8px 28px rgba(0,0,0,.06);">
+      <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:.1em; color:var(--terra); margin-bottom:5px;">FLUXO 04</div>
+      <h2 style="font-family:var(--display); font-weight:800; font-size:24px; margin:0 0 4px;">Resumo Legal Personalizado</h2>
+      <p style="font-size:13.5px; color:var(--muted); margin:0 0 26px;">Regras condicionais encadeadas na ordem certa — com o caso real do Sítio Boa Esperança (85 ha, Pará).</p>
+
+      <div style="display:flex; gap:26px; flex-wrap:wrap;">
+        <!-- decision chain -->
+        <div style="flex:1; min-width:300px; display:flex; flex-direction:column; align-items:center;">
+          <div style="background:var(--ink); color:var(--paper); border-radius:11px; padding:11px 18px; text-align:center; width:100%; max-width:330px;"><div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.08em; opacity:.7;">ENTRADA · DADOS DO CAR</div><div style="font-weight:700; font-size:13px; margin-top:2px;">Área · bioma · município · módulos · rio</div></div>
+
+          <div style="width:2px; height:20px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+          <div style="background:var(--paper); border:1.5px solid var(--teal); border-radius:11px; padding:10px 16px; text-align:center; width:100%; max-width:330px;"><div style="font-size:12.5px; font-weight:700; color:var(--teal);">1 · Qual o bioma?</div><div style="font-size:11.5px; color:var(--muted); margin-top:2px;">Amazônia floresta → RL base 80%</div></div>
+
+          <div style="width:2px; height:20px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+          <div style="background:var(--paper); border:1.5px solid var(--teal); border-radius:11px; padding:10px 16px; text-align:center; width:100%; max-width:330px;"><div style="font-size:12.5px; font-weight:700; color:var(--teal);">2 · Tem ZEE no estado?</div><div style="font-size:11.5px; color:var(--muted); margin-top:2px;">Pará, zona de consolidação → reduz a 50%</div></div>
+
+          <div style="width:2px; height:20px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+          <div style="background:var(--paper); border:1.5px solid var(--teal); border-radius:11px; padding:10px 16px; text-align:center; width:100%; max-width:330px;"><div style="font-size:12.5px; font-weight:700; color:var(--teal);">3 · Até 4 módulos fiscais?</div><div style="font-size:11.5px; color:var(--muted); margin-top:2px;">3,2 módulos → entra no Art. 67</div></div>
+
+          <div style="width:2px; height:20px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--wire);margin-top:-1px;"></div>
+
+          <div style="background:var(--paper); border:1.5px solid var(--teal); border-radius:11px; padding:10px 16px; text-align:center; width:100%; max-width:330px;"><div style="font-size:12.5px; font-weight:700; color:var(--teal);">4 · Vegetação em 22/07/2008?</div><div style="font-size:11.5px; color:var(--muted); margin-top:2px;">Mantém o que já existia no marco legal</div></div>
+
+          <div style="width:2px; height:20px; background:var(--wire);"></div><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--brand);margin-top:-1px;"></div>
+
+          <div style="background:var(--brand); color:var(--paper); border-radius:12px; padding:13px 18px; text-align:center; width:100%; max-width:330px;"><div style="font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.08em; opacity:.7;">SAÍDA</div><div style="font-weight:800; font-size:14px; margin-top:2px;">Téo narra o resultado no tom escolhido</div></div>
+        </div>
+
+        <!-- worked example -->
+        <div style="flex:1; min-width:280px;">
+          <div style="background:linear-gradient(165deg,#357046,#266E77); border-radius:16px; padding:20px; color:#EAF2E6; height:100%;">
+            <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.06em; color:#9FE0A0; margin-bottom:12px;">EXEMPLO · SÍTIO BOA ESPERANÇA</div>
+            <div style="display:flex; flex-direction:column; gap:9px;">
+              <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.09); border-radius:11px; padding:11px 13px;"><span style="font-family:var(--display); font-weight:800; font-size:20px; min-width:54px; text-align:center;">80%</span><span style="font-size:12px; line-height:1.4;"><b>A lei pede</b> — Amazônia floresta = 68 ha.</span></div>
+              <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.09); border-radius:11px; padding:11px 13px;"><span style="font-family:var(--display); font-weight:800; font-size:20px; min-width:54px; text-align:center;">50%</span><span style="font-size:12px; line-height:1.4;"><b>ZEE do Pará</b> — cai pra 42,5 ha.</span></div>
+              <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.09); border-radius:11px; padding:11px 13px;"><span style="font-family:var(--display); font-weight:800; font-size:20px; min-width:54px; text-align:center;">&lt; 4</span><span style="font-size:12px; line-height:1.4;"><b>Terra pequena</b> — 3,2 módulos, Art. 67.</span></div>
+              <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.09); border-radius:11px; padding:11px 13px;"><span style="font-family:var(--display); font-weight:800; font-size:18px; min-width:54px; text-align:center;">2008</span><span style="font-size:12px; line-height:1.4;"><b>Marco legal</b> — mantém a mata que já existia.</span></div>
+            </div>
+            <div style="font-size:12px; line-height:1.5; margin-top:14px; padding-top:13px; border-top:1px solid rgba(255,255,255,.16);">"O senhor não precisa derrubar nem replantar do zero. A conta da sua terra é bem mais leve do que a regra geral assusta."</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="text-align:center; margin-top:34px; font-family:'DM Mono',monospace; font-size:11px; color:var(--faint); letter-spacing:.04em;">ExpliCAR · Desafio 3 — entendimento das legislações do CAR</div>
+  </div>
+</div>
+</x-dc>
+<script>lucide.createIcons();</script>
+</body>
+</html>

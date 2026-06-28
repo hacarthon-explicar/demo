@@ -1,0 +1,98 @@
+# ExpliCAR
+
+A burocracia do Cadastro Ambiental Rural traduzida para a linguagem de quem vive da terra.
+
+ExpliCAR e um assistente digital que ajuda o pequeno e medio produtor rural a entender notificacoes do SICAR. A partir dos dados do seu imovel, o Teco (tecnico digital) explica cada pendencia em tres niveis de tom, gera um Resumo Legal Personalizado, e guia o produtor passo a passo ate a regularizacao.
+
+---
+
+## Acesso Rapido
+
+| Pagina | Link |
+|---|---|
+| Demonstracao Navegavel | [`demonstracao.html`](./demonstracao.html) |
+| Fluxogramas do Sistema | [`fluxogramas.html`](./fluxogramas.html) |
+| Pitch de Apresentacao | [`pitch.html`](./pitch.html) |
+| Roteiro de 3 min | [`roteiro-apresentacao.md`](./roteiro-apresentacao.md) |
+| Slides PPTX | [`export/ExpliCAR - Pitch.pptx`](./export/ExpliCAR%20-%20Pitch.pptx) |
+
+---
+
+## Funcionalidades do MVP
+
+- **Chat com Teo** — o coracao da solucao. Explica cada pendencia com base nos dados reais da propriedade e na legislacao aplicavel.
+- **Persona adaptativa** — tres tons de explicacao (Direto ao ponto, Explicado com calma, Completo) com adaptacao por feedback explicito do usuario.
+- **Gamificacao** — barra de progresso "X de 3 resolvidas" que reduz a ansiedade e mostra o avanco.
+- **Audio OmniVoice** — cada resposta tem um botao "Ouvir" com voz processada no servidor, para quem prefere ouvir.
+- **FAQ Contextual** — respostas rapidas com tolerancia a erros de digitacao (fuzzy matching).
+- **Resumo Legal Personalizado** — gerado pelo Teo com base nos dados reais do CAR, substituindo calculadoras genericas.
+
+---
+
+## Arquitetura (100% codigo aberto)
+
+```
+Mobile-first PWA
+  -> Orquestrador da Persona (Teo)
+    -> LLM agnostico (Llama / Mistral / Qwen)
+      -> Adapter do SICAR (dados do imovel)
+  -> Camada de audio (OmniVoice TTS)
+  -> Camada LGPD (pseudonimizacao, minimizacao)
+```
+
+| Componente | Tecnologia | Licenca |
+|---|---|---|
+| Frontend | HTML/CSS/JS (DC Framework) | MIT |
+| Backend | Python / FastAPI | MIT |
+| LLM | Agnostico (Llama / Mistral / Qwen) | Apache 2.0 |
+| TTS | OmniVoice (k2-fsa) | Apache 2.0 |
+| Banco de Dados | PostgreSQL | PostgreSQL |
+
+---
+
+## Estrutura do Repositorio
+
+```
+.
+├── index.html              (landing page)
+├── demonstracao.html       (demo navegavel)
+├── fluxogramas.html        (fluxogramas do sistema)
+├── pitch.html              (pitch de apresentacao)
+├── roteiro-apresentacao.md (script de 3 min)
+├── support.js              (runtime)
+├── deck-stage.js           (componente de slides)
+├── image-slot.js           (componente de imagem)
+├── assets/                 (logos e recursos visuais)
+├── docs/                   (documentacao do projeto)
+│   ├── direcional.md
+│   ├── ideacao.md
+│   ├── persona-tecnico.md
+│   ├── plano-demonstracao.md
+│   └── roteiro-apresentacao.md
+├── data/                   (dados de exemplo / mock SICAR)
+├── export/                 (slides PPTX)
+└── screenshots/            (capturas de referencia)
+```
+
+---
+
+## Sobre o Projeto
+
+**Desafio:** haCARthon -- Desafio 3  
+**Foco:** Pequeno e medio produtor rural  
+**LGPD:** Pseudonimizacao, minimizacao de dados, LLM em rede interna. O codigo e aberto; os dados, nao.
+
+### Equipe
+
+- **Samuel da Costa dos Santos** -- [github.com/samuel-c-santos](https://github.com/samuel-c-santos)
+- **Priscila Motta Gadelha Silva** -- [github.com/primottags](https://github.com/primottags)
+
+### Mentoria
+
+- **Lorrana Nunes** (@lorrana_nunes)
+
+---
+
+## Licenca
+
+MIT License. Veja o arquivo [LICENSE](./LICENSE) para detalhes.
