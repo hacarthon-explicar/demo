@@ -15,7 +15,9 @@
   .badge { display: inline-flex; align-items: center; gap: 8px; background: #2F5D3A; color: #F3ECDC; padding: 5px 12px; border-radius: 999px; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: .04em; margin-bottom: 16px; }
   .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .85; }
   h1 { font-family: 'Bitter', serif; font-weight: 800; font-size: 44px; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 8px; }
-  p.sub { font-size: 16px; color: #6E5A41; line-height: 1.55; margin-bottom: 40px; }
+  p.sub { font-size: 16px; color: #6E5A41; line-height: 1.55; margin-bottom: 32px; }
+  .cta { display:flex; align-items:center; justify-content:center; gap:12px; background:#C05A33; color:#FBF1E9; font-weight:800; font-size:19px; padding:18px 28px; border-radius:16px; text-decoration:none; margin-bottom:32px; transition:filter .15s, transform .15s; font-family:'Hanken Grotesk',system-ui,sans-serif; }
+  .cta:hover { filter:brightness(1.08); transform:translateY(-2px); }
   .grid { display: grid; gap: 16px; margin-bottom: 48px; }
   .card { display: block; background: #FCF8EE; border: 1px solid #E4DABF; border-radius: 16px; padding: 24px; text-decoration: none; color: inherit; transition: box-shadow .15s, transform .15s; }
   .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); transform: translateY(-2px); }
@@ -43,6 +45,8 @@
   <div class="badge">haCARthon · DESAFIO 3</div>
   <h1>A burocracia do CAR traduzida para a linguagem de quem vive da terra.</h1>
   <p class="sub">Téo, o técnico digital. Persona adaptativa com 3 tons de explicação, Resumo Legal Personalizado, gamificação e áudio OmniVoice — 100% código aberto.</p>
+
+  <a class="cta" href="demonstracao.html"><i data-lucide="play-circle" style="width:28px;height:28px;"></i> Iniciar Demonstração</a>
 
   <div class="grid">
     <a class="card" href="demonstracao.html">
