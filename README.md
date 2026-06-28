@@ -15,6 +15,7 @@ ExpliCAR e um assistente digital que ajuda o pequeno e medio produtor rural a en
 | Pitch de Apresentacao | [`pitch.html`](https://hacarthon-explicar.github.io/demo/pitch.html) |
 | Roteiro de 3 min | [`docs/roteiro-apresentacao.md`](https://hacarthon-explicar.github.io/demo/docs/roteiro-apresentacao.md) |
 | Slides PPTX | [`export/ExpliCAR - Pitch.pptx`](https://hacarthon-explicar.github.io/demo/export/ExpliCAR%20-%20Pitch.pptx) |
+| Video de Apresentacao | [assistir no YouTube](https://youtu.be/Fyc4ZCQY7iw) |
 
 ---
 
