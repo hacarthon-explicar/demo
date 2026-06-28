@@ -16,8 +16,13 @@
   .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .85; }
   h1 { font-family: 'Bitter', serif; font-weight: 800; font-size: 44px; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 8px; }
   p.sub { font-size: 16px; color: #6E5A41; line-height: 1.55; margin-bottom: 32px; }
-  .cta { display:flex; align-items:center; justify-content:center; gap:12px; background:#C05A33; color:#FBF1E9; font-weight:800; font-size:19px; padding:18px 28px; border-radius:16px; text-decoration:none; margin-bottom:32px; transition:filter .15s, transform .15s; font-family:'Hanken Grotesk',system-ui,sans-serif; }
-  .cta:hover { filter:brightness(1.08); transform:translateY(-2px); }
+  .card-primary { display:block; background:#C05A33; color:#FBF1E9; border:none; border-radius:16px; padding:24px; text-decoration:none; transition:filter .15s, transform .15s; }
+  .card-primary:hover { filter:brightness(1.08); transform:translateY(-2px); }
+  .card-primary .icon { font-size: 32px; margin-bottom: 8px; display:flex; align-items:center; gap:6px; }
+  .card-primary .icon i { width:32px; height:32px; display:flex; align-items:center; justify-content:center; }
+  .card-primary h2 { font-family: 'Bitter', serif; font-weight: 700; font-size: 20px; margin-bottom: 4px; }
+  .card-primary p { font-size: 14px; color: #EBC9B7; line-height: 1.5; }
+  .card-primary .tag { display:inline-block; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.06em; color:#EBC9B7; margin-top:12px; }
   .grid { display: grid; gap: 16px; margin-bottom: 48px; }
   .card { display: block; background: #FCF8EE; border: 1px solid #E4DABF; border-radius: 16px; padding: 24px; text-decoration: none; color: inherit; transition: box-shadow .15s, transform .15s; }
   .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); transform: translateY(-2px); }
@@ -46,10 +51,8 @@
   <h1>A burocracia do CAR traduzida para a linguagem de quem vive da terra.</h1>
   <p class="sub">Téo, o técnico digital. Persona adaptativa com 3 tons de explicação, Resumo Legal Personalizado, gamificação e áudio OmniVoice — 100% código aberto.</p>
 
-  <a class="cta" href="demonstracao.html"><i data-lucide="play-circle" style="width:28px;height:28px;"></i> Iniciar Demonstração</a>
-
   <div class="grid">
-    <a class="card" href="demonstracao.html">
+    <a class="card-primary" href="demonstracao.html">
       <div class="icon"><i data-lucide="smartphone"></i></div>
       <h2>Demonstração Navegável</h2>
       <p>A jornada completa do produtor: entrada, escolha de tom, chat com Téo, gamificação 3/3, áudio, FAQ e Resumo Legal Personalizado.</p>
